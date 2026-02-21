@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(powershell -Command:*)",
+      "Bash(npm start)",
+      "Bash(npm run dev:*)",
+      "Bash(node:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)"
+    ]
+  }
+}

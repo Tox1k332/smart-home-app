@@ -1,0 +1,1241 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Данил",
+      "email": "test@test.ru",
+      "password": "$2a$10$sI3GYFqgRjqg/lNJ5E.Si.pE4M/nVAWS0aOUN68tfzKIxHlkXWW/6",
+      "created_at": "2026-02-02T20:53:24.922Z"
+    },
+    {
+      "id": 2,
+      "name": "Егорчик",
+      "email": "test@1test.ru",
+      "password": "$2a$10$Kud3Ay60zEDH5f70s.6VtO48doE6/gl9/iyMQ.Np0xYmW4ca3Q/pG",
+      "created_at": "2026-02-02T20:55:42.876Z"
+    },
+    {
+      "id": 4,
+      "name": "Данил",
+      "email": "periugliest@virgilian.com",
+      "password": "$2a$10$RyXtn.1KqZqXyQ72sabl1O8hpkRQcB7U0OtK6RV8tFAARS0t7EHpC",
+      "email_verified": false,
+      "verification_code": "991968",
+      "verification_code_expires": "2026-02-07T19:53:54.632Z",
+      "created_at": "2026-02-07T19:43:54.689Z"
+    },
+    {
+      "id": 6,
+      "name": "egor",
+      "email": "galai2003@mail.ru",
+      "password": "$2a$10$gKyhSbOFhlDh41W8rKqmFeains.QWTekdchMThUL.r9f/NseDfcLO",
+      "email_verified": true,
+      "verification_code": null,
+      "verification_code_expires": null,
+      "created_at": "2026-02-09T19:46:37.221Z"
+    },
+    {
+      "id": 9,
+      "name": "Elektrik",
+      "email": "galai.jedai03022003@gmail.com",
+      "password": null,
+      "email_verified": true,
+      "oauth_provider": "google",
+      "oauth_id": "109420876119186660367",
+      "avatar": "https://lh3.googleusercontent.com/a/ACg8ocLFjDRJztl86BHgBfQcgb8Gsw28PXFgjgRAbdd1JjVw3Rmxw-hu=s96-c",
+      "created_at": "2026-02-10T19:14:16.280Z"
+    },
+    {
+      "id": 11,
+      "name": "Даниу",
+      "email": "den.pvkp@mail.ru",
+      "password": "$2a$10$nDRaa2l2nm4rd/eT3w5XuOBDbhzEXGDns4ZCWNRZOQ4MSZYpOGdLW",
+      "email_verified": true,
+      "verification_code": null,
+      "verification_code_expires": null,
+      "created_at": "2026-02-19T09:29:27.961Z",
+      "avatar": "/uploads/avatars/avatar-11-1771671362362.png",
+      "reset_code": null,
+      "reset_code_expires": null
+    }
+  ],
+  "devices": [
+    {
+      "id": 6,
+      "user_id": 1,
+      "name": "Видеокамера",
+      "type": "camera",
+      "room": "Кухня",
+      "is_on": false,
+      "created_at": "2026-02-04T06:05:08.560Z"
+    },
+    {
+      "id": 7,
+      "user_id": 1,
+      "name": "Розетка ",
+      "type": "socket",
+      "room": "Кухня",
+      "is_on": false,
+      "created_at": "2026-02-04T06:05:23.334Z"
+    },
+    {
+      "id": 8,
+      "user_id": 1,
+      "name": "Автополив",
+      "type": "sensor",
+      "room": "Двор",
+      "is_on": false,
+      "created_at": "2026-02-04T06:05:43.722Z"
+    },
+    {
+      "id": 9,
+      "user_id": 1,
+      "name": "Лампочка",
+      "type": "light",
+      "room": "Туалет",
+      "is_on": false,
+      "created_at": "2026-02-05T18:52:42.193Z"
+    },
+    {
+      "id": 10,
+      "user_id": 1,
+      "name": "Люстра",
+      "type": "light",
+      "room": "Гостиная",
+      "is_on": false,
+      "created_at": "2026-02-06T20:51:17.949Z"
+    },
+    {
+      "id": 16,
+      "user_id": 11,
+      "name": "Лампа",
+      "type": "light",
+      "room": "Гостиная",
+      "properties": {},
+      "is_on": false,
+      "is_favorite": false,
+      "created_at": "2026-02-19T09:31:48.923Z"
+    },
+    {
+      "id": 17,
+      "user_id": 11,
+      "name": "Термостат",
+      "type": "thermostat",
+      "room": "123",
+      "properties": {
+        "temperature": 22,
+        "target_temperature": 23
+      },
+      "is_on": true,
+      "is_favorite": true,
+      "created_at": "2026-02-19T09:34:58.014Z"
+    },
+    {
+      "id": 18,
+      "user_id": 11,
+      "name": "Замок",
+      "type": "lock",
+      "room": "123",
+      "properties": {
+        "locked": true
+      },
+      "is_on": false,
+      "is_favorite": false,
+      "created_at": "2026-02-19T09:35:21.203Z"
+    }
+  ],
+  "nextUserId": 12,
+  "nextDeviceId": 19,
+  "activityLogs": [
+    {
+      "id": 1,
+      "user_id": 10,
+      "action": "device_add",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-11T20:00:06.957Z"
+    },
+    {
+      "id": 2,
+      "user_id": 10,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-11T20:04:45.562Z"
+    },
+    {
+      "id": 3,
+      "user_id": 10,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-11T20:04:48.388Z"
+    },
+    {
+      "id": 4,
+      "user_id": 10,
+      "action": "device_add",
+      "details": {
+        "device_name": "Градусник"
+      },
+      "created_at": "2026-02-11T20:12:14.899Z"
+    },
+    {
+      "id": 5,
+      "user_id": 10,
+      "action": "device_update",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-11T20:12:55.481Z"
+    },
+    {
+      "id": 6,
+      "user_id": 10,
+      "action": "device_on",
+      "details": {
+        "device_name": "Градусник"
+      },
+      "created_at": "2026-02-11T20:13:05.750Z"
+    },
+    {
+      "id": 7,
+      "user_id": 10,
+      "action": "device_add",
+      "details": {
+        "device_name": "Датчик движения"
+      },
+      "created_at": "2026-02-11T20:13:21.457Z"
+    },
+    {
+      "id": 8,
+      "user_id": 10,
+      "action": "device_on",
+      "details": {
+        "device_name": "Датчик движения"
+      },
+      "created_at": "2026-02-11T20:13:22.692Z"
+    },
+    {
+      "id": 9,
+      "user_id": 10,
+      "action": "device_update",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-11T20:18:25.470Z"
+    },
+    {
+      "id": 10,
+      "user_id": 10,
+      "action": "device_update",
+      "details": {
+        "device_name": "Градусник"
+      },
+      "created_at": "2026-02-11T20:18:26.486Z"
+    },
+    {
+      "id": 11,
+      "user_id": 10,
+      "action": "device_update",
+      "details": {
+        "device_name": "Датчик движения"
+      },
+      "created_at": "2026-02-11T20:18:27.561Z"
+    },
+    {
+      "id": 12,
+      "user_id": 10,
+      "action": "device_update",
+      "details": {
+        "device_name": "Градусник"
+      },
+      "created_at": "2026-02-11T20:20:36.850Z"
+    },
+    {
+      "id": 13,
+      "user_id": 10,
+      "action": "user_login",
+      "details": {},
+      "created_at": "2026-02-12T20:12:15.047Z"
+    },
+    {
+      "id": 14,
+      "user_id": 10,
+      "action": "device_off",
+      "details": {
+        "device_name": "Градусник"
+      },
+      "created_at": "2026-02-12T20:12:25.386Z"
+    },
+    {
+      "id": 15,
+      "user_id": 10,
+      "action": "device_on",
+      "details": {
+        "device_name": "Градусник"
+      },
+      "created_at": "2026-02-12T20:12:26.884Z"
+    },
+    {
+      "id": 16,
+      "user_id": 10,
+      "action": "device_off",
+      "details": {
+        "device_name": "Датчик движения"
+      },
+      "created_at": "2026-02-12T20:12:41.030Z"
+    },
+    {
+      "id": 17,
+      "user_id": 10,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-12T20:12:41.925Z"
+    },
+    {
+      "id": 18,
+      "user_id": 10,
+      "action": "device_update",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-12T20:12:42.575Z"
+    },
+    {
+      "id": 19,
+      "user_id": 10,
+      "action": "device_update",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-12T20:12:44.828Z"
+    },
+    {
+      "id": 20,
+      "user_id": 10,
+      "action": "user_login",
+      "details": {},
+      "created_at": "2026-02-16T19:15:08.366Z"
+    },
+    {
+      "id": 21,
+      "user_id": 10,
+      "action": "device_off",
+      "details": {
+        "device_name": "Градусник"
+      },
+      "created_at": "2026-02-16T19:15:19.326Z"
+    },
+    {
+      "id": 22,
+      "user_id": 10,
+      "action": "device_on",
+      "details": {
+        "device_name": "Градусник"
+      },
+      "created_at": "2026-02-16T19:15:19.930Z"
+    },
+    {
+      "id": 23,
+      "user_id": 10,
+      "action": "device_update",
+      "details": {
+        "device_name": "Градусник"
+      },
+      "created_at": "2026-02-16T19:15:21.106Z"
+    },
+    {
+      "id": 24,
+      "user_id": 10,
+      "action": "device_update",
+      "details": {
+        "device_name": "Градусник"
+      },
+      "created_at": "2026-02-16T19:15:21.732Z"
+    },
+    {
+      "id": 25,
+      "user_id": 10,
+      "action": "device_update",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-16T19:15:24.046Z"
+    },
+    {
+      "id": 26,
+      "user_id": 10,
+      "action": "device_update",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-16T19:15:24.485Z"
+    },
+    {
+      "id": 27,
+      "user_id": 10,
+      "action": "device_update",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-16T19:15:24.895Z"
+    },
+    {
+      "id": 28,
+      "user_id": 10,
+      "action": "device_update",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-16T19:15:25.486Z"
+    },
+    {
+      "id": 29,
+      "user_id": 10,
+      "action": "device_update",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-16T19:15:25.867Z"
+    },
+    {
+      "id": 30,
+      "user_id": 10,
+      "action": "device_update",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-16T19:15:26.295Z"
+    },
+    {
+      "id": 31,
+      "user_id": 10,
+      "action": "device_update",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-16T19:15:26.738Z"
+    },
+    {
+      "id": 32,
+      "user_id": 10,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:14:53.313Z"
+    },
+    {
+      "id": 33,
+      "user_id": 10,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:14:53.788Z"
+    },
+    {
+      "id": 34,
+      "user_id": 10,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:14:54.202Z"
+    },
+    {
+      "id": 35,
+      "user_id": 10,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:14:54.618Z"
+    },
+    {
+      "id": 36,
+      "user_id": 10,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:14:55.660Z"
+    },
+    {
+      "id": 37,
+      "user_id": 10,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:14:56.842Z"
+    },
+    {
+      "id": 38,
+      "user_id": 10,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:14:57.644Z"
+    },
+    {
+      "id": 39,
+      "user_id": 10,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:14:58.478Z"
+    },
+    {
+      "id": 40,
+      "user_id": 10,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:14:59.617Z"
+    },
+    {
+      "id": 41,
+      "user_id": 10,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:15:56.527Z"
+    },
+    {
+      "id": 42,
+      "user_id": 10,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:15:57.056Z"
+    },
+    {
+      "id": 43,
+      "user_id": 10,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:17:59.528Z"
+    },
+    {
+      "id": 44,
+      "user_id": 10,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:18:00.675Z"
+    },
+    {
+      "id": 45,
+      "user_id": 10,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:18:02.008Z"
+    },
+    {
+      "id": 46,
+      "user_id": 10,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:18:02.423Z"
+    },
+    {
+      "id": 47,
+      "user_id": 10,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:18:04.838Z"
+    },
+    {
+      "id": 48,
+      "user_id": 10,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:18:05.205Z"
+    },
+    {
+      "id": 49,
+      "user_id": 10,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:18:08.006Z"
+    },
+    {
+      "id": 50,
+      "user_id": 10,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:18:09.519Z"
+    },
+    {
+      "id": 51,
+      "user_id": 10,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:19:54.265Z"
+    },
+    {
+      "id": 52,
+      "user_id": 10,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:19:54.703Z"
+    },
+    {
+      "id": 53,
+      "user_id": 10,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:19:55.911Z"
+    },
+    {
+      "id": 54,
+      "user_id": 10,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:19:56.490Z"
+    },
+    {
+      "id": 55,
+      "user_id": 10,
+      "action": "device_off",
+      "details": {
+        "device_name": "Градусник"
+      },
+      "created_at": "2026-02-19T09:20:16.472Z"
+    },
+    {
+      "id": 56,
+      "user_id": 10,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:20:17.100Z"
+    },
+    {
+      "id": 57,
+      "user_id": 10,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:20:17.401Z"
+    },
+    {
+      "id": 58,
+      "user_id": 10,
+      "action": "device_update",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:20:18.565Z"
+    },
+    {
+      "id": 59,
+      "user_id": 10,
+      "action": "device_update",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:20:19.163Z"
+    },
+    {
+      "id": 60,
+      "user_id": 10,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:21:27.595Z"
+    },
+    {
+      "id": 61,
+      "user_id": 10,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:22:28.273Z"
+    },
+    {
+      "id": 62,
+      "user_id": 10,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:23:22.147Z"
+    },
+    {
+      "id": 63,
+      "user_id": 10,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:24:34.514Z"
+    },
+    {
+      "id": 64,
+      "user_id": 10,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:24:34.819Z"
+    },
+    {
+      "id": 65,
+      "user_id": 10,
+      "action": "user_login",
+      "details": {},
+      "created_at": "2026-02-19T09:28:13.714Z"
+    },
+    {
+      "id": 66,
+      "user_id": 11,
+      "action": "device_add",
+      "details": {
+        "device_name": "Светильник"
+      },
+      "created_at": "2026-02-19T09:30:37.380Z"
+    },
+    {
+      "id": 67,
+      "user_id": 11,
+      "action": "device_on",
+      "details": {
+        "device_name": "Светильник"
+      },
+      "created_at": "2026-02-19T09:30:45.131Z"
+    },
+    {
+      "id": 68,
+      "user_id": 11,
+      "action": "device_off",
+      "details": {
+        "device_name": "Светильник"
+      },
+      "created_at": "2026-02-19T09:30:45.443Z"
+    },
+    {
+      "id": 69,
+      "user_id": 11,
+      "action": "device_on",
+      "details": {
+        "device_name": "Светильник"
+      },
+      "created_at": "2026-02-19T09:30:45.791Z"
+    },
+    {
+      "id": 70,
+      "user_id": 11,
+      "action": "device_off",
+      "details": {
+        "device_name": "Светильник"
+      },
+      "created_at": "2026-02-19T09:30:46.140Z"
+    },
+    {
+      "id": 71,
+      "user_id": 11,
+      "action": "device_on",
+      "details": {
+        "device_name": "Светильник"
+      },
+      "created_at": "2026-02-19T09:30:46.539Z"
+    },
+    {
+      "id": 72,
+      "user_id": 11,
+      "action": "device_off",
+      "details": {
+        "device_name": "Светильник"
+      },
+      "created_at": "2026-02-19T09:30:47.215Z"
+    },
+    {
+      "id": 73,
+      "user_id": 11,
+      "action": "device_update",
+      "details": {
+        "device_name": "Светильник"
+      },
+      "created_at": "2026-02-19T09:31:00.465Z"
+    },
+    {
+      "id": 74,
+      "user_id": 11,
+      "action": "device_update",
+      "details": {
+        "device_name": "Светильник"
+      },
+      "created_at": "2026-02-19T09:31:08.058Z"
+    },
+    {
+      "id": 75,
+      "user_id": 11,
+      "action": "device_delete",
+      "details": {
+        "device_name": "Светильник"
+      },
+      "created_at": "2026-02-19T09:31:11.140Z"
+    },
+    {
+      "id": 76,
+      "user_id": 11,
+      "action": "device_add",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:31:48.924Z"
+    },
+    {
+      "id": 77,
+      "user_id": 11,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:31:50.042Z"
+    },
+    {
+      "id": 78,
+      "user_id": 11,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:31:50.161Z"
+    },
+    {
+      "id": 79,
+      "user_id": 11,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:31:50.282Z"
+    },
+    {
+      "id": 80,
+      "user_id": 11,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:31:50.396Z"
+    },
+    {
+      "id": 81,
+      "user_id": 11,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:31:50.500Z"
+    },
+    {
+      "id": 82,
+      "user_id": 11,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:31:50.604Z"
+    },
+    {
+      "id": 83,
+      "user_id": 11,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:31:50.710Z"
+    },
+    {
+      "id": 84,
+      "user_id": 11,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:31:50.825Z"
+    },
+    {
+      "id": 85,
+      "user_id": 11,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:31:50.924Z"
+    },
+    {
+      "id": 86,
+      "user_id": 11,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:31:51.034Z"
+    },
+    {
+      "id": 87,
+      "user_id": 11,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:31:51.127Z"
+    },
+    {
+      "id": 88,
+      "user_id": 11,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:31:51.227Z"
+    },
+    {
+      "id": 89,
+      "user_id": 11,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:31:51.317Z"
+    },
+    {
+      "id": 90,
+      "user_id": 11,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:31:51.424Z"
+    },
+    {
+      "id": 91,
+      "user_id": 11,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:31:51.532Z"
+    },
+    {
+      "id": 92,
+      "user_id": 11,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:31:51.637Z"
+    },
+    {
+      "id": 93,
+      "user_id": 11,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:31:51.744Z"
+    },
+    {
+      "id": 94,
+      "user_id": 11,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:31:51.855Z"
+    },
+    {
+      "id": 95,
+      "user_id": 11,
+      "action": "device_add",
+      "details": {
+        "device_name": "Термостат"
+      },
+      "created_at": "2026-02-19T09:34:58.014Z"
+    },
+    {
+      "id": 96,
+      "user_id": 11,
+      "action": "device_on",
+      "details": {
+        "device_name": "Термостат"
+      },
+      "created_at": "2026-02-19T09:35:02.613Z"
+    },
+    {
+      "id": 97,
+      "user_id": 11,
+      "action": "device_add",
+      "details": {
+        "device_name": "Замок"
+      },
+      "created_at": "2026-02-19T09:35:21.204Z"
+    },
+    {
+      "id": 98,
+      "user_id": 11,
+      "action": "device_on",
+      "details": {
+        "device_name": "Замок"
+      },
+      "created_at": "2026-02-19T09:35:25.768Z"
+    },
+    {
+      "id": 99,
+      "user_id": 11,
+      "action": "device_update",
+      "details": {
+        "device_name": "Замок",
+        "changes": [
+          {
+            "field": "room",
+            "from": "Гараж",
+            "to": "123"
+          }
+        ]
+      },
+      "created_at": "2026-02-19T09:35:30.027Z"
+    },
+    {
+      "id": 100,
+      "user_id": 11,
+      "action": "device_off",
+      "details": {
+        "device_name": "Замок"
+      },
+      "created_at": "2026-02-19T09:35:34.358Z"
+    },
+    {
+      "id": 101,
+      "user_id": 11,
+      "action": "device_on",
+      "details": {
+        "device_name": "Замок"
+      },
+      "created_at": "2026-02-19T09:35:34.471Z"
+    },
+    {
+      "id": 102,
+      "user_id": 11,
+      "action": "device_off",
+      "details": {
+        "device_name": "Замок"
+      },
+      "created_at": "2026-02-19T09:35:34.575Z"
+    },
+    {
+      "id": 103,
+      "user_id": 11,
+      "action": "device_on",
+      "details": {
+        "device_name": "Замок"
+      },
+      "created_at": "2026-02-19T09:35:34.801Z"
+    },
+    {
+      "id": 104,
+      "user_id": 11,
+      "action": "device_off",
+      "details": {
+        "device_name": "Замок"
+      },
+      "created_at": "2026-02-19T09:35:41.268Z"
+    },
+    {
+      "id": 105,
+      "user_id": 11,
+      "action": "device_on",
+      "details": {
+        "device_name": "Замок"
+      },
+      "created_at": "2026-02-19T09:35:48.286Z"
+    },
+    {
+      "id": 106,
+      "user_id": 11,
+      "action": "device_off",
+      "details": {
+        "device_name": "Замок"
+      },
+      "created_at": "2026-02-19T09:35:48.454Z"
+    },
+    {
+      "id": 107,
+      "user_id": 11,
+      "action": "device_on",
+      "details": {
+        "device_name": "Замок"
+      },
+      "created_at": "2026-02-19T09:37:51.923Z"
+    },
+    {
+      "id": 108,
+      "user_id": 11,
+      "action": "device_on",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:38:33.963Z"
+    },
+    {
+      "id": 109,
+      "user_id": 11,
+      "action": "device_off",
+      "details": {
+        "device_name": "Лампа"
+      },
+      "created_at": "2026-02-19T09:38:34.094Z"
+    },
+    {
+      "id": 110,
+      "user_id": 11,
+      "action": "device_update",
+      "details": {
+        "device_name": "Термостат"
+      },
+      "created_at": "2026-02-19T09:42:48.754Z"
+    },
+    {
+      "id": 111,
+      "user_id": 11,
+      "action": "device_off",
+      "details": {
+        "device_name": "Термостат"
+      },
+      "created_at": "2026-02-19T09:43:36.577Z"
+    },
+    {
+      "id": 112,
+      "user_id": 11,
+      "action": "device_off",
+      "details": {
+        "device_name": "Замок"
+      },
+      "created_at": "2026-02-19T09:43:37.102Z"
+    },
+    {
+      "id": 113,
+      "user_id": 11,
+      "action": "user_login",
+      "details": {},
+      "created_at": "2026-02-19T09:48:03.665Z"
+    },
+    {
+      "id": 114,
+      "user_id": 11,
+      "action": "device_on",
+      "details": {
+        "device_name": "Замок"
+      },
+      "created_at": "2026-02-19T09:57:25.229Z"
+    },
+    {
+      "id": 115,
+      "user_id": 11,
+      "action": "user_login",
+      "details": {},
+      "created_at": "2026-02-19T10:12:46.830Z"
+    },
+    {
+      "id": 116,
+      "user_id": 11,
+      "action": "user_login",
+      "details": {},
+      "created_at": "2026-02-21T10:35:46.879Z"
+    },
+    {
+      "id": 117,
+      "user_id": 11,
+      "action": "device_off",
+      "details": {
+        "device_name": "Замок"
+      },
+      "created_at": "2026-02-21T10:37:29.142Z"
+    },
+    {
+      "id": 118,
+      "user_id": 11,
+      "action": "device_on",
+      "details": {
+        "device_name": "Замок"
+      },
+      "created_at": "2026-02-21T10:39:31.382Z"
+    },
+    {
+      "id": 119,
+      "user_id": 11,
+      "action": "device_off",
+      "details": {
+        "device_name": "Замок"
+      },
+      "created_at": "2026-02-21T10:39:35.324Z"
+    },
+    {
+      "id": 120,
+      "user_id": 11,
+      "action": "user_login",
+      "details": {},
+      "created_at": "2026-02-21T10:46:04.488Z"
+    },
+    {
+      "id": 121,
+      "user_id": 11,
+      "action": "device_on",
+      "details": {
+        "device_name": "Термостат"
+      },
+      "created_at": "2026-02-21T10:56:08.995Z"
+    },
+    {
+      "id": 122,
+      "user_id": 11,
+      "action": "user_login",
+      "details": {},
+      "created_at": "2026-02-21T13:22:05.982Z"
+    }
+  ],
+  "nextLogId": 123
+}
