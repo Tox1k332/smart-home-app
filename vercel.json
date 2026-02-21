@@ -3,3 +3,8 @@
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
+
+# Конфигурация для Vercel (альтернатива Netlify)
+# Если используешь Vercel вместо Netlify:
+# 1. Замени netlify.toml на этот файл
+# 2. VITE_API_BASE_URL настрой в переменных окружения Vercel

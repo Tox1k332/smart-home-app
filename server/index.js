@@ -12,14 +12,17 @@ const activityLogsRoutes = require('./routes/activity-logs')
 const app = express()
 const PORT = process.env.PORT || 3001
 
-// Разрешаем CORS для frontend на Vercel/Netlify
+// URL backend для аватарок
+const BACKEND_URL = process.env.BACKEND_URL || `http://localhost:${PORT}`
+
+// Разрешаем CORS для frontend на Netlify
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000'
 const ALLOWED_ORIGINS = [
   FRONTEND_URL,
   'http://localhost:3000',
   'http://localhost:5173',
-  /\.vercel\.app$/,
-  /\.netlify\.app$/
+  /\.netlify\.app$/,
+  /\.vercel\.app$/
 ]
 
 app.use(cors({
@@ -47,6 +50,12 @@ app.use(express.json())
 
 // Статическая раздача загруженных файлов
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+
+// Добавляем URL backend в ответ для аватарок
+app.use((req, res, next) => {
+  req.backendUrl = BACKEND_URL
+  next()
+})
 
 app.use('/api/auth', authRoutes)
 app.use('/api/oauth', oauthRoutes)
@@ -77,4 +86,5 @@ app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`)
   console.log(`📊 Health check: http://localhost:${PORT}/api/health`)
   console.log(`🌐 Frontend URL: ${FRONTEND_URL}`)
+  console.log(`🖼️ Backend URL: ${BACKEND_URL}`)
 })

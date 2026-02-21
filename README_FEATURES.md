@@ -28,7 +28,7 @@ npm run server
 Подробная инструкция: [DEPLOYMENT.md](./DEPLOYMENT.md)
 
 **Хостинги:**
-- **Frontend**: Vercel (бесплатно)
+- **Frontend**: Netlify (бесплатно)
 - **Backend**: Render (бесплатно)
 - **База данных**: MongoDB Atlas (бесплатно 512 МБ)
 
@@ -319,9 +319,9 @@ smart-home-app/
 - API: http://localhost:3001/api
 
 ### Production
-- Frontend: https://smart-home-app.vercel.app
-- Backend: https://smart-home-api.onrender.com
-- API: https://smart-home-api.onrender.com/api
+- Frontend: https://smart-home-app-xxxx.netlify.app
+- Backend: https://smart-home-api-xxxx.onrender.com
+- API: https://smart-home-api-xxxx.onrender.com/api
 
 ### Хранение данных
 - **Development**: JSON-файл (`server/database/db.json`)

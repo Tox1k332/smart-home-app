@@ -141,13 +141,17 @@ router.post('/verify', (req, res) => {
 
     const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '7d' })
 
+    // Формируем полный URL для аватарки
+    const backendUrl = process.env.BACKEND_URL || `http://localhost:${process.env.PORT || 3001}`
+    const avatarUrl = user.avatar ? `${backendUrl}${user.avatar}` : null
+
     res.json({
       token,
       user: {
         id: user.id,
         name: user.name,
         email: user.email,
-        avatar: user.avatar || null,
+        avatar: avatarUrl,
         created_at: user.created_at
       }
     })
@@ -303,13 +307,17 @@ router.post('/login', async (req, res) => {
 
     activityLogs.add(user.id, 'user_login', {})
 
+    // Формируем полный URL для аватарки
+    const backendUrl = process.env.BACKEND_URL || `http://localhost:${process.env.PORT || 3001}`
+    const avatarUrl = user.avatar ? `${backendUrl}${user.avatar}` : null
+
     res.json({
       token,
       user: {
         id: user.id,
         name: user.name,
         email: user.email,
-        avatar: user.avatar || null,
+        avatar: avatarUrl,
         created_at: user.created_at
       }
     })
@@ -327,12 +335,16 @@ router.get('/me', authMiddleware, (req, res) => {
       return res.status(404).json({ error: 'Пользователь не найден' })
     }
 
+    // Формируем полный URL для аватарки
+    const backendUrl = process.env.BACKEND_URL || `http://localhost:${process.env.PORT || 3001}`
+    const avatarUrl = user.avatar ? `${backendUrl}${user.avatar}` : null
+
     res.json({
       user: {
         id: user.id,
         name: user.name,
         email: user.email,
-        avatar: user.avatar || null,
+        avatar: avatarUrl,
         created_at: user.created_at
       }
     })
@@ -363,12 +375,17 @@ router.put('/profile', authMiddleware, (req, res) => {
 
     const updated = users.update(req.userId, updates)
     activityLogs.add(req.userId, 'profile_update', {})
+    
+    // Формируем полный URL для аватарки
+    const backendUrl = process.env.BACKEND_URL || `http://localhost:${process.env.PORT || 3001}`
+    const avatarUrl = updated.avatar ? `${backendUrl}${updated.avatar}` : null
+    
     res.json({
       user: {
         id: updated.id,
         name: updated.name,
         email: updated.email,
-        avatar: updated.avatar || null,
+        avatar: avatarUrl,
         created_at: updated.created_at
       }
     })

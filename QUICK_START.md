@@ -17,7 +17,7 @@ git push -u origin main
 ```
 
 ### 2. MongoDB Atlas (5 мин)
-1. https://mongodb.com/cloud/atlas/register
+1. Зайди на https://mongodb.com/cloud/atlas/register
 2. **Build a Database** → **FREE**
 3. **Database Access**: создай пользователя `smarthome` с паролем
 4. **Network Access**: **Allow Access from Anywhere** (0.0.0.0/0)
@@ -25,7 +25,7 @@ git push -u origin main
 6. Замени `<password>` в строке на свой пароль
 
 ### 3. Render - Backend (10 мин)
-1. https://render.com → Sign in with GitHub
+1. Зайди на https://render.com → Sign in with GitHub
 2. **New +** → **Web Service**
 3. Выбери репозиторий `smart-home-app`
 4. Настройки:
@@ -38,27 +38,32 @@ git push -u origin main
    NODE_ENV=production
    MONGODB_URI=<строка из MongoDB>
    JWT_SECRET=any-random-string-min-32-chars
-   FRONTEND_URL=https://smart-home-app.vercel.app
+   FRONTEND_URL=https://smart-home-app.netlify.app
    OPENWEATHER_API_KEY=46954c93e53c9992375e3904ec3618a7
    ```
 6. **Create Web Service** → жди 3-5 мин
 7. Скопируй URL (типа `https://smart-home-api-xxxx.onrender.com`)
 
-### 4. Vercel - Frontend (5 мин)
-1. https://vercel.com → Sign in with GitHub
-2. **Add New...** → **Project**
-3. Выбери `smart-home-app` → **Import**
-4. **Environment Variables**:
+### 4. Netlify - Frontend (5 мин)
+1. Зайди на https://app.netlify.com/signup → Sign in with GitHub
+2. **"Add new site"** → **"Import an existing project"**
+3. Выбери **GitHub** → найди `smart-home-app`
+4. Настройки сборки (автоматически):
+   - **Build command**: `npm run build`
+   - **Publish directory**: `dist`
+5. **Environment variables** → добавь:
    ```
    VITE_API_BASE_URL=https://smart-home-api-xxxx.onrender.com/api
+
+   https://smart-home-app-ea6f.onrender.com
    ```
-5. **Deploy** → жди 2 мин
-6. Готово! URL: `https://smart-home-app.vercel.app`
+6. **Deploy site** → жди 2-3 мин
+7. Готово! URL: `https://smart-home-app-xxxx.netlify.app`
 
 ### 5. Проверка (5 мин)
 1. Открой `https://smart-home-api-xxxx.onrender.com/api/health`
    - Должно вернуться: `{"status": "ok", ...}`
-2. Открой `https://smart-home-app.vercel.app`
+2. Открой `https://smart-home-app-xxxx.netlify.app`
 3. Зарегистрируйся
 4. Создай устройство
 5. Обнови страницу — устройство должно остаться

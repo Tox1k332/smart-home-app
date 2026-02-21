@@ -53,9 +53,12 @@ Smart Home Application - Готовность к демонстрации
 - [ ] Health check работает: `/api/health`
 - [ ] URL скопирован
 
-### 4. Vercel (Frontend)
+### 4. Netlify (Frontend)
 - [ ] Аккаунт создан
-- [ ] Проект импортирован
+- [ ] Проект импортирован из GitHub
+- [ ] Настройки сборки:
+  - [ ] Build command: `npm run build`
+  - [ ] Publish directory: `dist`
 - [ ] Переменная окружения:
   - [ ] `VITE_API_BASE_URL=https://...onrender.com/api`
 - [ ] Деплой успешен

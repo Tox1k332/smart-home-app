@@ -86,6 +86,7 @@ git push -u origin main
 ```
 mongodb+srv://smarthome:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
 ```
+mongodb+srv://smarthome:<3Ej0jaDEXvCBEQZN>@cluster0.pktf6p2.mongodb.net/?appName=Cluster0
 
 4. **Замени `<password>`** на свой пароль
 5. **Сохрани эту строку!** Она понадобится для Render
@@ -145,6 +146,8 @@ SMTP_PASS=igtofsuqcmrriwvu
 1. Нажми **"Create Web Service"**
 2. Жди ~3-5 минут пока идёт деплой
 3. Скопируй URL (будет типа: `https://smart-home-api-xxxx.onrender.com`)
+
+https://smart-home-app-ea6f.onrender.com
 
 **Важно:** Бесплатный тариф Render "засыпает" через 15 минут бездействия. Первый запрос после простоя будет грузиться ~30 секунд.
 
