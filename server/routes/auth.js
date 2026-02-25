@@ -46,29 +46,39 @@ const upload = multer({
 router.post('/register', async (req, res) => {
   const { name, email, password } = req.body
 
+  console.log('📝 Registration attempt:', { name, email, passwordLength: password?.length })
+
   if (!name || !email || !password) {
+    console.log('❌ Missing fields')
     return res.status(400).json({ error: 'Все поля обязательны' })
   }
 
   if (password.length < 8) {
+    console.log('❌ Password too short')
     return res.status(400).json({ error: 'Пароль должен содержать минимум 8 символов' })
   }
   if (!/\d/.test(password)) {
+    console.log('❌ Password missing digit')
     return res.status(400).json({ error: 'Пароль должен содержать хотя бы одну цифру' })
   }
   if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?`~]/.test(password)) {
+    console.log('❌ Password missing special char')
     return res.status(400).json({ error: 'Пароль должен содержать хотя бы один специальный символ' })
   }
 
   try {
     // Проверка существования подтверждённого пользователя
     const existingUser = users.findByEmail(email)
+    console.log('🔍 Existing user check:', existingUser ? 'found' : 'not found')
+
     if (existingUser && existingUser.email_verified) {
+      console.log('❌ User already exists and verified')
       return res.status(400).json({ error: 'Пользователь с таким email уже существует' })
     }
 
     const code = generateVerificationCode()
     const codeExpires = new Date(Date.now() + 10 * 60 * 1000).toISOString() // 10 минут
+    console.log('🔐 Generated verification code:', code)
 
     if (existingUser && !existingUser.email_verified) {
       // Обновляем существующего неподтверждённого пользователя
@@ -79,6 +89,7 @@ router.post('/register', async (req, res) => {
         verification_code: code,
         verification_code_expires: codeExpires
       })
+      console.log('📧 Sending code to existing unverified user:', email)
       sendVerificationCode(email, code, name)
       return res.status(201).json({ needsVerification: true, email })
     }
@@ -87,7 +98,7 @@ router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10)
 
     // Создание неподтверждённого пользователя
-    users.create({
+    const newUser = users.create({
       name,
       email,
       password: hashedPassword,
@@ -95,13 +106,15 @@ router.post('/register', async (req, res) => {
       verification_code: code,
       verification_code_expires: codeExpires
     })
+    console.log('✅ User created:', newUser.id)
 
     // Отправляем код на email
+    console.log('📧 Sending verification code to:', email)
     sendVerificationCode(email, code, name)
 
     res.status(201).json({ needsVerification: true, email })
   } catch (error) {
-    console.error('Registration error:', error)
+    console.error('❌ Registration error:', error)
     res.status(500).json({ error: 'Ошибка сервера' })
   }
 })
