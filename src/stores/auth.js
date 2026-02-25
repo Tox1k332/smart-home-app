@@ -3,13 +3,29 @@ import { ref, computed } from 'vue'
 import api from '../services/api'
 
 export const useAuthStore = defineStore('auth', () => {
-  // Восстанавливаем из localStorage
-  const savedUser = localStorage.getItem('user')
-  const savedToken = localStorage.getItem('token')
-  
-  const user = ref(savedUser ? JSON.parse(savedUser) : null)
-  const token = ref(savedToken || null)
+  // Инициализация состояния
+  const user = ref(null)
+  const token = ref(null)
   const isAuthenticated = computed(() => !!token.value)
+  
+  // Восстанавливаем из localStorage при создании store
+  const initAuth = () => {
+    try {
+      const savedToken = localStorage.getItem('token')
+      const savedUser = localStorage.getItem('user')
+      if (savedToken) {
+        token.value = savedToken
+      }
+      if (savedUser) {
+        user.value = JSON.parse(savedUser)
+      }
+    } catch (e) {
+      console.error('Failed to restore auth from localStorage:', e)
+    }
+  }
+  
+  // Вызываем сразу при создании store
+  initAuth()
 
   const login = async (email, password) => {
     try {
