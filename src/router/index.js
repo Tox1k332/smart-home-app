@@ -12,7 +12,10 @@ const routes = [
   { path: '/status', name: 'Status', component: () => import('../views/StatusView.vue'), meta: { requiresAuth: true } }
 ]
 
-const router = createRouter({ history: createWebHistory(), routes })
+const router = createRouter({
+  history: createWebHistory('/smart-home-app/'),
+  routes
+})
 
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
