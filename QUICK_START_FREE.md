@@ -135,14 +135,17 @@ OPENWEATHER_API_KEY=46954c93e53c9992375e3904ec3618a7
 ### 5. GitHub Pages (5 мин)
 
 1. Репозиторий → **Settings** → **Pages**
-2. **Source**: Deploy from branch
-3. **Branch**: `gh-pages`
-4. **Save**
+2. **Source**: GitHub Actions
+3. Готово! Деплой настроен автоматически
 
-Или через Actions (автоматически):
-- **Actions** → выбери workflow → **Run**
+При каждом пуше в `main` фронтенд будет деплоиться автоматически.
 
-Через 2-3 минуты:
+Первый деплой:
+- Перейди во вкладку **Actions**
+- Выбери **Deploy to GitHub Pages**
+- Дождись завершения (~2-3 мин)
+
+После деплоя:
 ```
 https://USERNAME.github.io/smart-home-app
 ```
