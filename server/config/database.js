@@ -15,6 +15,11 @@ const defaultDb = {
   nextLogId: 1
 }
 
+// Кэш в памяти
+let dbCache = null
+let cacheTime = 0
+const CACHE_TTL = 1000 // 1 секунда
+
 // Создаем директорию если её нет
 if (!fs.existsSync(dbDir)) {
   fs.mkdirSync(dbDir, { recursive: true })
@@ -25,11 +30,17 @@ if (!fs.existsSync(dbPath)) {
   fs.writeFileSync(dbPath, JSON.stringify(defaultDb, null, 2))
 }
 
-// Чтение базы данных
+// Чтение базы данных с кэшированием
 function readDb() {
+  const now = Date.now()
+  if (dbCache && (now - cacheTime) < CACHE_TTL) {
+    return dbCache
+  }
   try {
     const data = fs.readFileSync(dbPath, 'utf8')
-    return JSON.parse(data)
+    dbCache = JSON.parse(data)
+    cacheTime = now
+    return dbCache
   } catch (error) {
     console.error('Error reading database:', error)
     return defaultDb

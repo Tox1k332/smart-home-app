@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const path = require('path')
+const { connectDB } = require('./config/db')
 const authRoutes = require('./routes/auth')
 const deviceRoutes = require('./routes/devices')
 const oauthRoutes = require('./routes/oauth')
@@ -11,6 +12,13 @@ const activityLogsRoutes = require('./routes/activity-logs')
 
 const app = express()
 const PORT = process.env.PORT || 3001
+
+// Подключаем MongoDB
+connectDB().then(({ type }) => {
+  console.log(`📊 Database type: ${type}`)
+}).catch(err => {
+  console.error('Database connection failed:', err)
+})
 
 // URL backend для аватарок
 const BACKEND_URL = process.env.BACKEND_URL || `http://localhost:${PORT}`
