@@ -8,19 +8,14 @@ COPY package*.json ./
 # Устанавливаем зависимости
 RUN npm install --production
 
-# Копируем весь сервер
+# Копируем сервер
 COPY server/ ./server/
 
-# Копируем frontend (если есть после сборки)
-COPY dist/ ./dist/ 2>/dev/null || true
-
+# Открываем порт
 EXPOSE 7860
 
-# Переменные окружения по умолчанию
+# Переменные окружения
 ENV PORT=7860
 ENV NODE_ENV=production
-
-# Хостинг передаёт переменные через docker run -e
-# Убедитесь что MONGODB_URI передан при запуске контейнера
 
 CMD ["node", "server/index.js"]
