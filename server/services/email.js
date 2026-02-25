@@ -4,6 +4,8 @@ const nodemailer = require('nodemailer')
 if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
   console.warn('⚠️ SMTP credentials not set! Email sending will fallback to console logs')
   console.warn('⚠️ Add SMTP_USER and SMTP_PASS environment variables to enable email sending')
+} else {
+  console.log('✅ SMTP credentials found:', process.env.SMTP_USER)
 }
 
 // Транспорт Яндекс
@@ -18,7 +20,19 @@ const transporter = nodemailer.createTransport({
   // Увеличенные таймауты для стабильности
   connectionTimeout: 10000,
   greetingTimeout: 10000,
-  socketTimeout: 15000
+  socketTimeout: 15000,
+  // Логирование для отладки
+  logger: true,
+  debug: true
+})
+
+// Проверка подключения к SMTP
+transporter.verify((error, success) => {
+  if (error) {
+    console.error('❌ SMTP connection error:', error.message)
+  } else {
+    console.log('✅ SMTP server ready to send emails')
+  }
 })
 
 // HTML-шаблон письма с кодом подтверждения
@@ -109,11 +123,14 @@ async function sendVerificationCode(toEmail, code, userName) {
   }
 
   try {
-    await sendWithRetry(mailOptions)
-    console.log(`✅ Письмо с кодом отправлено на ${toEmail}`)
+    console.log('📤 Attempting to send email to:', toEmail)
+    const info = await sendWithRetry(mailOptions)
+    console.log(`✅ Email sent successfully to ${toEmail}`)
+    console.log('📬 Message ID:', info.messageId)
     return true
   } catch (error) {
-    console.error(`❌ Не удалось отправить письмо на ${toEmail}: ${error.message}`)
+    console.error(`❌ Failed to send email to ${toEmail}: ${error.message}`)
+    console.error('Error details:', error)
     return false
   }
 }
