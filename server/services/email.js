@@ -2,45 +2,48 @@ const nodemailer = require('nodemailer')
 
 // Проверка наличия SMTP настроек
 if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
-  console.warn('⚠️ SMTP credentials not set! Email sending will fallback to console logs')
-  console.warn('⚠️ Add SMTP_USER and SMTP_PASS environment variables to enable email sending')
+  console.warn('⚠️ SMTP credentials not set — email sending disabled')
+  console.warn('💡 Код подтверждения будет показан только в логах сервера')
 } else {
   console.log('✅ SMTP credentials found:', process.env.SMTP_USER)
+  
+  // Транспорт - используем Gmail или Яндекс
+  const transporter = nodemailer.createTransport({
+    // Определяем сервис по домену почты
+    service: process.env.SMTP_USER?.includes('@gmail.com') ? 'gmail' : undefined,
+    // Для Яндекс используем прямые настройки
+    host: process.env.SMTP_USER?.includes('@gmail.com') ? undefined : 'smtp.yandex.ru',
+    port: process.env.SMTP_USER?.includes('@gmail.com') ? 587 : 465,
+    secure: process.env.SMTP_USER?.includes('@gmail.com') ? false : true,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS
+    },
+    // Увеличенные таймауты для стабильности
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 15000,
+    // Логирование для отладки
+    logger: true,
+    debug: true,
+    // TLS настройки для обхода блокировок
+    tls: {
+      rejectUnauthorized: false
+    }
+  })
+
+  // Проверка подключения к SMTP
+  transporter.verify((error, success) => {
+    if (error) {
+      console.error('❌ SMTP connection error:', error.message)
+      console.warn('⚠️ Email sending disabled — code will be shown in logs only')
+    } else {
+      console.log('✅ SMTP server ready to send emails')
+    }
+  })
+
+  module.exports.transporter = transporter
 }
-
-// Транспорт - используем Gmail или Яндекс
-const transporter = nodemailer.createTransport({
-  // Определяем сервис по домену почты
-  service: process.env.SMTP_USER?.includes('@gmail.com') ? 'gmail' : undefined,
-  // Для Яндекс используем прямые настройки
-  host: process.env.SMTP_USER?.includes('@gmail.com') ? undefined : 'smtp.yandex.ru',
-  port: process.env.SMTP_USER?.includes('@gmail.com') ? 587 : 465,
-  secure: process.env.SMTP_USER?.includes('@gmail.com') ? false : true,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS
-  },
-  // Увеличенные таймауты для стабильности
-  connectionTimeout: 10000,
-  greetingTimeout: 10000,
-  socketTimeout: 15000,
-  // Логирование для отладки
-  logger: true,
-  debug: true,
-  // TLS настройки для обхода блокировок
-  tls: {
-    rejectUnauthorized: false
-  }
-})
-
-// Проверка подключения к SMTP
-transporter.verify((error, success) => {
-  if (error) {
-    console.error('❌ SMTP connection error:', error.message)
-  } else {
-    console.log('✅ SMTP server ready to send emails')
-  }
-})
 
 // HTML-шаблон письма с кодом подтверждения
 function buildVerificationEmail(code, userName) {
@@ -113,20 +116,30 @@ async function sendWithRetry(mailOptions, maxRetries = 3) {
 async function sendVerificationCode(toEmail, code, userName) {
   const html = buildVerificationEmail(code, userName)
 
+  // Всегда выводим код в логи — это основной способ для демонстрации
+  console.log('')
+  console.log('📬 ──────────────────────────────────────')
+  console.log(`📧 Код подтверждения для ${toEmail}: ${code}`)
+  console.log('📬 ──────────────────────────────────────')
+  console.log('')
+
+  // Если SMTP не настроен — только логируем
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    console.log('⚠️ SMTP not configured — email not sent (code shown in logs above)')
+    return false
+  }
+
+  // Если нет transporter (ошибка инициализации) — только логируем
+  if (!module.exports.transporter) {
+    console.log('⚠️ SMTP transporter not initialized — email not sent')
+    return false
+  }
+
   const mailOptions = {
     from: `"Smart Home" <${process.env.SMTP_USER}>`,
     to: toEmail,
     subject: `${code} — код подтверждения Smart Home`,
     html
-  }
-
-  // Всегда выводим код в логи для отладки
-  console.log(`📧 Код подтверждения для ${toEmail}: ${code}`)
-
-  // Если SMTP не настроен — только логируем
-  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
-    console.log('⚠️ SMTP not configured — email not sent')
-    return false
   }
 
   try {
@@ -137,7 +150,7 @@ async function sendVerificationCode(toEmail, code, userName) {
     return true
   } catch (error) {
     console.error(`❌ Failed to send email to ${toEmail}: ${error.message}`)
-    console.error('Error details:', error)
+    console.log('💡 Use code from logs above:', code)
     return false
   }
 }
