@@ -1,5 +1,11 @@
 const nodemailer = require('nodemailer')
 
+// Проверка наличия SMTP настроек
+if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+  console.warn('⚠️ SMTP credentials not set! Email sending will fallback to console logs')
+  console.warn('⚠️ Add SMTP_USER and SMTP_PASS environment variables to enable email sending')
+}
+
 // Транспорт Яндекс
 const transporter = nodemailer.createTransport({
   host: 'smtp.yandex.ru',
@@ -93,14 +99,21 @@ async function sendVerificationCode(toEmail, code, userName) {
     html
   }
 
+  // Всегда выводим код в логи для отладки
+  console.log(`📧 Код подтверждения для ${toEmail}: ${code}`)
+
+  // Если SMTP не настроен — только логируем
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    console.log('⚠️ SMTP not configured — email not sent')
+    return false
+  }
+
   try {
     await sendWithRetry(mailOptions)
     console.log(`✅ Письмо с кодом отправлено на ${toEmail}`)
     return true
   } catch (error) {
-    console.error(`❌ Не удалось отправить письмо на ${toEmail} после 3 попыток`)
-    // Fallback: выводим код в консоль, чтобы не блокировать разработку
-    console.log(`📧 Fallback — код подтверждения для ${toEmail}: ${code}`)
+    console.error(`❌ Не удалось отправить письмо на ${toEmail}: ${error.message}`)
     return false
   }
 }
