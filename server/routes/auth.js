@@ -209,6 +209,40 @@ router.post('/resend-code', (req, res) => {
   }
 })
 
+// Удаление аккаунта (для тестирования)
+router.post('/delete-account', async (req, res) => {
+  const { email, password } = req.body
+
+  console.log('🗑️ Delete account request:', email)
+
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Email и пароль обязательны' })
+  }
+
+  try {
+    const user = users.findByEmail(email)
+    if (!user) {
+      return res.status(404).json({ error: 'Пользователь не найден' })
+    }
+
+    // Проверяем пароль
+    const validPassword = await bcrypt.compare(password, user.password)
+    if (!validPassword) {
+      return res.status(401).json({ error: 'Неверный пароль' })
+    }
+
+    // Удаляем пользователя
+    users.delete(user.id)
+
+    console.log(`✅ Account deleted: ${email}`)
+
+    res.json({ success: true, message: 'Аккаунт удалён' })
+  } catch (error) {
+    console.error('Delete account error:', error)
+    res.status(500).json({ error: 'Ошибка сервера' })
+  }
+})
+
 // Запрос сброса пароля
 router.post('/forgot-password', (req, res) => {
   const { email } = req.body
