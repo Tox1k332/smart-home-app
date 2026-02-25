@@ -3,8 +3,12 @@ import { ref, computed } from 'vue'
 import api from '../services/api'
 
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref(null)
-  const token = ref(localStorage.getItem('token') || null)
+  // Восстанавливаем из localStorage
+  const savedUser = localStorage.getItem('user')
+  const savedToken = localStorage.getItem('token')
+  
+  const user = ref(savedUser ? JSON.parse(savedUser) : null)
+  const token = ref(savedToken || null)
   const isAuthenticated = computed(() => !!token.value)
 
   const login = async (email, password) => {
@@ -13,6 +17,7 @@ export const useAuthStore = defineStore('auth', () => {
       token.value = response.data.token
       user.value = response.data.user
       localStorage.setItem('token', response.data.token)
+      localStorage.setItem('user', JSON.stringify(response.data.user))
       return { success: true }
     } catch (error) {
       const data = error.response?.data
@@ -32,6 +37,7 @@ export const useAuthStore = defineStore('auth', () => {
       token.value = response.data.token
       user.value = response.data.user
       localStorage.setItem('token', response.data.token)
+      localStorage.setItem('user', JSON.stringify(response.data.user))
       return { success: true }
     } catch (error) {
       return { success: false, error: error.response?.data?.error || 'Ошибка регистрации' }
@@ -44,6 +50,7 @@ export const useAuthStore = defineStore('auth', () => {
       token.value = response.data.token
       user.value = response.data.user
       localStorage.setItem('token', response.data.token)
+      localStorage.setItem('user', JSON.stringify(response.data.user))
       return { success: true }
     } catch (error) {
       return { success: false, error: error.response?.data?.error || 'Ошибка подтверждения' }
@@ -63,6 +70,7 @@ export const useAuthStore = defineStore('auth', () => {
     token.value = null
     user.value = null
     localStorage.removeItem('token')
+    localStorage.removeItem('user')
   }
 
   const checkAuth = async () => {
@@ -70,6 +78,7 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       const response = await api.get('/auth/me')
       user.value = response.data.user
+      localStorage.setItem('user', JSON.stringify(response.data.user))
     } catch (error) {
       logout()
     }
@@ -79,6 +88,7 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       const response = await api.put('/auth/profile', data)
       user.value = response.data.user
+      localStorage.setItem('user', JSON.stringify(response.data.user))
       return { success: true }
     } catch (error) {
       return { success: false, error: error.response?.data?.error || 'Ошибка обновления' }
@@ -102,6 +112,7 @@ export const useAuthStore = defineStore('auth', () => {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
       user.value = { ...user.value, avatar: response.data.avatar }
+      localStorage.setItem('user', JSON.stringify(user.value))
       return { success: true }
     } catch (error) {
       return { success: false, error: error.response?.data?.error || 'Ошибка загрузки аватара' }
@@ -112,6 +123,7 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       await api.delete('/auth/avatar')
       user.value = { ...user.value, avatar: null }
+      localStorage.setItem('user', JSON.stringify(user.value))
       return { success: true }
     } catch (error) {
       return { success: false, error: error.response?.data?.error || 'Ошибка удаления аватара' }
