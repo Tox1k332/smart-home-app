@@ -3,6 +3,7 @@ services:
     name: smart-home-api
     env: node
     region: frankfurt
+    plan: free
     buildCommand: npm install
     startCommand: node server/index.js
     healthCheckPath: /api/health
@@ -10,12 +11,14 @@ services:
       - key: NODE_ENV
         value: production
       - key: PORT
-        value: 3001
-      - key: BACKEND_URL
-        value: https://smart-home-app-ea6f.onrender.com
+        value: 7860
+      - key: MONGODB_URI
+        sync: false
       - key: JWT_SECRET
-        value: smart-home-jwt-secret-key-change-in-production-2026
+        sync: false
+      - key: BACKEND_URL
+        sync: false
       - key: FRONTEND_URL
-        value: https://smart-home-app52.netlify.app
+        sync: false
       - key: OPENWEATHER_API_KEY
-        value: 46954c93e53c9992375e3904ec3618a7
+        sync: false

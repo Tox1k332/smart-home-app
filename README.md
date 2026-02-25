@@ -39,80 +39,17 @@ npm run server
 
 ## 🌐 Деплой
 
-### 🆓 Полностью бесплатно (рекомендую)
+### 🎯 Render.com (рекомендую)
 
-**GitHub Pages + Hugging Face Spaces** - 0 руб/мес
+**Backend на Render** + **Frontend на GitHub Pages** - 0 руб/мес
 
-👉 [QUICK_START_FREE.md](./QUICK_START_FREE.md) - деплой за 30 минут
-
-👉 [DEPLOYMENT_FREE.md](./DEPLOYMENT_FREE.md) - подробная инструкция
+👉 [DEPLOY_RENDER.md](./DEPLOY_RENDER.md) - инструкция по деплою
 
 **Преимущества:**
-- 🆓 Полностью бесплатно
-- 🇷🇺 GitHub работает в РФ
-- 💳 Не нужна карта
-
-### 🇷🇺 Российский хостинг (~200 руб/мес)
-
-**Timeweb Cloud** - VPS в России
-
-👉 [QUICK_START_TIMEWEB.md](./QUICK_START_TIMEWEB.md) - за 40 минут
-
-👉 [DEPLOYMENT_TIMEWEB.md](./DEPLOYMENT_TIMEWEB.md) - подробно
-
-**Преимущества:**
-- 🇷🇺 Не блокируется
-- ⚡ Быстро в РФ
-- 💰 Оплата рублями
-
----
-
-## 📁 Структура
-
-```
-smart-home-app/
-├── src/                    # Frontend (Vue 3)
-│   ├── views/              # Страницы
-│   ├── components/         # Компоненты
-│   ├── stores/             # Pinia
-│   └── router/             # Роутинг
-├── server/                 # Backend (Express)
-│   ├── routes/             # API
-│   └── middleware/         # Auth
-├── .env                    # Переменные
-├── package.json
-└── README.md
-```
-
----
-
-## 🛠️ Технологии
-
-**Frontend:**
-- Vue 3 (Composition API)
-- Pinia
-- Vue Router
-- Axios
-- Vite
-
-**Backend:**
-- Node.js
-- Express
-- JWT
-- MongoDB
-
----
-
-## 📡 API
-
-```
-POST   /api/auth/register       Регистрация
-POST   /api/auth/login          Вход
-GET    /api/auth/me             Пользователь
-GET    /api/devices             Устройства
-POST   /api/devices             Создать устройство
-GET    /api/weather             Погода
-```
+- 🆓 Бесплатно (750 часов/мес)
+- ✅ Переменные окружения работают из коробки
+- ⚡ Автоматический деплой из Git
+- 🔒 Безопасное хранение секретов
 
 ---
 
@@ -120,23 +57,93 @@ GET    /api/weather             Погода
 
 | Файл | Описание |
 |------|----------|
-| [НАЧНИТЕ_ЗДЕСЬ.md](./НАЧНИТЕ_ЗДЕСЬ.md) | 🎯 Старт здесь |
-| [QUICK_START_FREE.md](./QUICK_START_FREE.md) | ⚡ Бесплатный деплой за 30 мин |
-| [DEPLOYMENT_FREE.md](./DEPLOYMENT_FREE.md) | 📖 Подробный бесплатный деплой |
-| [QUICK_START_TIMEWEB.md](./QUICK_START_TIMEWEB.md) | 🇷🇺 Российский хостинг за 40 мин |
-| [TECHNICAL_SPECIFICATION.md](./TECHNICAL_SPECIFICATION.md) | 📋 ТЗ |
-| [ЭКОНОМИЧЕСКАЯ_ЧАСТЬ.md](./ЭКОНОМИЧЕСКАЯ_ЧАСТЬ.md) | 💰 Расчёты |
+| [DEPLOY_RENDER.md](./DEPLOY_RENDER.md) | Деплой на Render.com |
+| [НАЧНИТЕ_ЗДЕСЬ.md](./НАЧНИТЕ_ЗДЕСЬ.md) | Общая информация о проекте |
+| [TECHNICAL_SPECIFICATION.md](./TECHNICAL_SPECIFICATION.md) | Техническое задание по ГОСТ |
+| [ЭКОНОМИЧЕСКАЯ_ЧАСТЬ.md](./ЭКОНОМИЧЕСКАЯ_ЧАСТЬ.md) | Расчёт затрат и эффективность |
 
 ---
 
-## 👨‍💻 Автор
+## 🛠️ Технологии
 
-Студент группы XXX-XXX  
-Специальность: 09.02.07 "Информационные системы и программирование"  
-Период: 26 января — 23 февраля 2026 г.
+### Frontend
+- Vue 3 (Composition API)
+- Pinia (state management)
+- Vue Router
+- Axios
+- Vite
+
+### Backend
+- Node.js
+- Express
+- MongoDB (или JSON файл)
+- JWT (аутентификация)
+- bcryptjs
+- Nodemailer
+
+### DevOps
+- Docker
+- Render.com (хостинг backend)
+- GitHub Pages (хостинг frontend)
+- MongoDB Atlas (база данных)
 
 ---
 
-## 📄 Лицензия
+## 📊 Структура проекта
 
-MIT
+```
+smart-home-app/
+├── src/                    # Frontend (Vue 3)
+│   ├── components/         # Vue компоненты
+│   ├── views/              # Страницы
+│   ├── stores/             # Pinia store'ы
+│   ├── services/           # API сервисы
+│   └── router/             # Маршрутизация
+├── server/                 # Backend (Express)
+│   ├── config/             # Конфигурация (DB, etc.)
+│   ├── routes/             # API routes
+│   ├── middleware/         # Auth middleware
+│   ├── services/           # Email, etc.
+│   └── database/           # JSON DB (fallback)
+├── package.json            # Зависимости
+├── Dockerfile              # Docker образ
+└── render.yaml             # Render конфигурация
+```
+
+---
+
+## 🔐 Переменные окружения
+
+### Backend (.env)
+
+```env
+PORT=7860
+NODE_ENV=production
+MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/smart-home
+JWT_SECRET=your-secret-key
+BACKEND_URL=https://your-api.onrender.com
+FRONTEND_URL=https://your-username.github.io/smart-home-app
+OPENWEATHER_API_KEY=your-api-key
+```
+
+### Frontend (Vite)
+
+```env
+VITE_API_BASE_URL=https://your-api.onrender.com/api
+```
+
+---
+
+## 📅 Информация о проекте
+
+- **Период разработки:** 26 января — 23 февраля 2026 г.
+- **Специальность:** 09.02.07 "Информационные системы и программирование"
+- **Автор:** Студент группы XXX-XXX
+
+---
+
+## 🎉 Удачи!
+
+Проект полностью готов к развёртыванию и демонстрации на защите диплома.
+
+**Успешной защиты! 🍀**

@@ -10,8 +10,6 @@ server/uploads/*
 Thumbs.db
 .git/
 .gitignore
-README.md
-*.md
 .qwen/
 .vscode/
 .idea/

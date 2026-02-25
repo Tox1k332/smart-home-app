@@ -3,23 +3,13 @@ const jsonDb = require('./database')
 
 let db = null
 let client = null
-let isMongo = false
 
 async function connectDB() {
   const mongoUri = process.env.MONGODB_URI
-  
-  // Логируем для отладки (в production скроем часть URI)
-  if (mongoUri) {
-    const maskedUri = mongoUri.replace(/\/\/([^:]+):([^@]+)@/, '//$1:***@')
-    console.log('🔍 MONGODB_URI found:', maskedUri)
-  } else {
-    console.log('⚠️ MONGODB_URI NOT found in environment variables')
-  }
 
   // Если есть MongoDB URI - используем MongoDB, иначе JSON файл
   if (mongoUri) {
     try {
-      console.log('🔄 Connecting to MongoDB...')
       client = new MongoClient(mongoUri, {
         serverSelectionTimeoutMS: 5000,
         socketTimeoutMS: 45000,
@@ -29,14 +19,12 @@ async function connectDB() {
 
       // Проверка подключения
       await client.db().admin().ping()
-      console.log('✅ MongoDB connected successfully')
+      console.log('✅ MongoDB connected')
 
       // Создаём индексы
       await db.collection('users').createIndex({ email: 1 }, { unique: true })
       await db.collection('devices').createIndex({ user_id: 1 })
       await db.collection('activityLogs').createIndex({ user_id: 1, created_at: -1 })
-
-      isMongo = true
 
       // Экспортируем MongoDB адаптер
       module.exports.users = createUsersAdapter(db)
@@ -45,8 +33,7 @@ async function connectDB() {
 
       return { type: 'mongodb', db }
     } catch (error) {
-      console.error('❌ MongoDB connection error:', error.message)
-      console.error('Full error:', error)
+      console.error('MongoDB connection error:', error.message)
       console.log('⚠️ Falling back to JSON file database')
       
       // Закрываем соединение если оно было
