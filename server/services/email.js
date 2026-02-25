@@ -8,11 +8,14 @@ if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
   console.log('✅ SMTP credentials found:', process.env.SMTP_USER)
 }
 
-// Транспорт Яндекс
+// Транспорт - используем Gmail или Яндекс
 const transporter = nodemailer.createTransport({
-  host: 'smtp.yandex.ru',
-  port: 465,
-  secure: true,
+  // Определяем сервис по домену почты
+  service: process.env.SMTP_USER?.includes('@gmail.com') ? 'gmail' : undefined,
+  // Для Яндекс используем прямые настройки
+  host: process.env.SMTP_USER?.includes('@gmail.com') ? undefined : 'smtp.yandex.ru',
+  port: process.env.SMTP_USER?.includes('@gmail.com') ? 587 : 465,
+  secure: process.env.SMTP_USER?.includes('@gmail.com') ? false : true,
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS
@@ -23,7 +26,11 @@ const transporter = nodemailer.createTransport({
   socketTimeout: 15000,
   // Логирование для отладки
   logger: true,
-  debug: true
+  debug: true,
+  // TLS настройки для обхода блокировок
+  tls: {
+    rejectUnauthorized: false
+  }
 })
 
 // Проверка подключения к SMTP
