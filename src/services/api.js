@@ -1,7 +1,17 @@
 import axios from 'axios'
 
+// Для GitHub Pages используем полный URL backend
+const getBaseURL = () => {
+  // Если запущено на GitHub Pages
+  if (window.location.hostname.includes('github.io')) {
+    return 'https://sweety52-smart-home-api.hf.space/api'
+  }
+  // Локально или на других доменах
+  return import.meta.env.VITE_API_BASE_URL || '/api'
+}
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
+  baseURL: getBaseURL(),
   headers: { 'Content-Type': 'application/json' }
 })
 
