@@ -17,8 +17,8 @@ services:
       - key: JWT_SECRET
         sync: false
       - key: BACKEND_URL
-        sync: false
+        value: https://smart-home-api-l5dr.onrender.com
       - key: FRONTEND_URL
-        sync: false
+        value: https://tox1k332.github.io/smart-home-app
       - key: OPENWEATHER_API_KEY
         sync: false

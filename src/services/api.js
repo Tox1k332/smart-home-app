@@ -4,7 +4,7 @@ import axios from 'axios'
 const getBaseURL = () => {
   // Если запущено на GitHub Pages
   if (window.location.hostname.includes('github.io')) {
-    return 'https://sweety52-smart-home-api.hf.space/api'
+    return 'https://smart-home-api-l5dr.onrender.com/api'
   }
   // Локально или на других доменах
   return import.meta.env.VITE_API_BASE_URL || '/api'
