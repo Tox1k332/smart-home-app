@@ -15,14 +15,15 @@ const PORT = process.env.PORT || 3001
 // URL backend для аватарок
 const BACKEND_URL = process.env.BACKEND_URL || `http://localhost:${PORT}`
 
-// Разрешаем CORS для frontend на Netlify
+// Разрешаем CORS для frontend
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000'
 const ALLOWED_ORIGINS = [
   FRONTEND_URL,
   'http://localhost:3000',
   'http://localhost:5173',
   /\.netlify\.app$/,
-  /\.vercel\.app$/
+  /\.vercel\.app$/,
+  /\.github\.io$/  // GitHub Pages
 ]
 
 app.use(cors({
