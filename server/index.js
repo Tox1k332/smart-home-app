@@ -13,6 +13,13 @@ const activityLogsRoutes = require('./routes/activity-logs')
 const app = express()
 const PORT = process.env.PORT || 3001
 
+// Проверка SMTP настроек
+if (process.env.SMTP_USER && process.env.SMTP_PASS) {
+  console.log('✅ SMTP credentials found:', process.env.SMTP_USER)
+} else {
+  console.warn('⚠️ SMTP credentials not set — email sending disabled')
+}
+
 // Подключаем MongoDB
 connectDB().then(({ type }) => {
   console.log(`📊 Database type: ${type}`)
