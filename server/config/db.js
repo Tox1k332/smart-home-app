@@ -1,4 +1,3 @@
-require('dotenv').config()
 const { MongoClient } = require('mongodb')
 const jsonDb = require('./database')
 
@@ -7,30 +6,53 @@ let client = null
 let isMongo = false
 
 async function connectDB() {
+  const mongoUri = process.env.MONGODB_URI
+  
+  // Логируем для отладки (в production скроем часть URI)
+  if (mongoUri) {
+    const maskedUri = mongoUri.replace(/\/\/([^:]+):([^@]+)@/, '//$1:***@')
+    console.log('🔍 MONGODB_URI found:', maskedUri)
+  } else {
+    console.log('⚠️ MONGODB_URI NOT found in environment variables')
+  }
+
   // Если есть MongoDB URI - используем MongoDB, иначе JSON файл
-  if (process.env.MONGODB_URI) {
+  if (mongoUri) {
     try {
-      client = new MongoClient(process.env.MONGODB_URI)
+      console.log('🔄 Connecting to MongoDB...')
+      client = new MongoClient(mongoUri, {
+        serverSelectionTimeoutMS: 5000,
+        socketTimeoutMS: 45000,
+      })
       await client.connect()
       db = client.db('smart-home-app')
+
+      // Проверка подключения
+      await client.db().admin().ping()
+      console.log('✅ MongoDB connected successfully')
 
       // Создаём индексы
       await db.collection('users').createIndex({ email: 1 }, { unique: true })
       await db.collection('devices').createIndex({ user_id: 1 })
       await db.collection('activityLogs').createIndex({ user_id: 1, created_at: -1 })
 
-      console.log('✅ MongoDB connected')
       isMongo = true
-      
+
       // Экспортируем MongoDB адаптер
       module.exports.users = createUsersAdapter(db)
       module.exports.devices = createDevicesAdapter(db)
       module.exports.activityLogs = createActivityLogsAdapter(db)
-      
+
       return { type: 'mongodb', db }
     } catch (error) {
-      console.error('MongoDB connection error:', error.message)
+      console.error('❌ MongoDB connection error:', error.message)
+      console.error('Full error:', error)
       console.log('⚠️ Falling back to JSON file database')
+      
+      // Закрываем соединение если оно было
+      if (client) {
+        await client.close().catch(() => {})
+      }
     }
   }
 
@@ -38,7 +60,7 @@ async function connectDB() {
   module.exports.users = jsonDb.users
   module.exports.devices = jsonDb.devices
   module.exports.activityLogs = jsonDb.activityLogs
-  
+
   return { type: 'json', db: jsonDb }
 }
 

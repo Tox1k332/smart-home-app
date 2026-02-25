@@ -13,9 +13,23 @@ const activityLogsRoutes = require('./routes/activity-logs')
 const app = express()
 const PORT = process.env.PORT || 3001
 
+// Выводим информацию о переменных окружения (без чувствительных данных)
+console.log('🔍 Environment check:')
+console.log('  PORT:', PORT)
+console.log('  NODE_ENV:', process.env.NODE_ENV)
+console.log('  MONGODB_URI:', process.env.MONGODB_URI ? '✅ Set' : '❌ NOT SET')
+console.log('  BACKEND_URL:', process.env.BACKEND_URL || 'http://localhost:' + PORT)
+console.log('  FRONTEND_URL:', process.env.FRONTEND_URL || 'http://localhost:3000')
+console.log('  OPENWEATHER_API_KEY:', process.env.OPENWEATHER_API_KEY ? '✅ Set' : '❌ NOT SET')
+console.log('')
+
 // Подключаем MongoDB
 connectDB().then(({ type }) => {
   console.log(`📊 Database type: ${type}`)
+  if (type === 'json') {
+    console.log('⚠️ WARNING: Using JSON database instead of MongoDB!')
+    console.log('⚠️ Check MONGODB_URI variable in hosting settings')
+  }
 }).catch(err => {
   console.error('Database connection failed:', err)
 })
