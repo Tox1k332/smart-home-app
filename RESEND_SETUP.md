@@ -5,6 +5,30 @@
 
 ---
 
+## ⚙️ Настройка переменных окружения
+
+### Для frontend (GitHub Pages)
+
+Создай файл `.env.local` в корне проекта:
+
+```bash
+# URL backend API (укажите ваш Render URL)
+VITE_API_URL=https://your-app.onrender.com/api
+```
+
+**Важно:** Замените `your-app.onrender.com` на ваш реальный URL из Render!
+
+### Для backend (Render)
+
+В Render Dashboard добавьте переменные:
+
+| Имя | Значение |
+|-----|----------|
+| `FRONTEND_URL` | `https://tox1k332.github.io/smart-home-app` |
+| `RESEND_API_KEY` | `re_xxxxxxxxxxxxxxxxxxxxx` |
+
+---
+
 ## 📧 Часть 1: Настройка Resend для отправки email
 
 ### 1. Зарегистрируйтесь на Resend
