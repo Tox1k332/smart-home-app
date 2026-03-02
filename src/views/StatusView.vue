@@ -314,11 +314,8 @@ const fetchWeather = async () => {
     const langMap = { en: 'en', ru: 'ru', fi: 'fi' }
     const lang = langMap[i18nStore.locale] || 'en'
     
-    // Используем тот же подход что и в api.js
-    const baseUrl = window.location.hostname.includes('github.io')
-      ? 'https://smart-home-api-l5dr.onrender.com/api'
-      : (import.meta.env.VITE_API_BASE_URL || '/api')
-    
+    // URL backend для GitHub Pages
+    const baseUrl = 'https://smart-home-api-l5dr.onrender.com/api'
     const url = `${baseUrl}/weather?city=${encodeURIComponent(weatherCity.value)}&lang=${lang}`
     const res = await fetch(url)
 
