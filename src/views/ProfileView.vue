@@ -30,7 +30,13 @@
           <div class="profile-header">
             <div class="avatar-container">
               <div class="avatar-circle" @click="triggerAvatarUpload">
-                <img v-if="authStore.user?.avatar" :src="authStore.user.avatar" alt="Avatar" class="avatar-image" />
+                <img 
+                  v-if="authStore.user?.avatar" 
+                  :src="authStore.user.avatar" 
+                  alt="Avatar" 
+                  class="avatar-image"
+                  @error="handleAvatarError"
+                />
                 <span v-else>{{ authStore.user?.name?.charAt(0).toUpperCase() }}</span>
                 <div class="avatar-overlay">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -423,9 +429,23 @@ async function handleAvatarUpload(event) {
   avatarInput.value.value = ''
   if (result.success) {
     showToast(t('profile.avatarUploaded'))
+    // Принудительно обновляем src изображения после загрузки
+    setTimeout(() => {
+      const img = document.querySelector('.avatar-image')
+      if (img) {
+        console.log('Avatar URL after upload:', img.src)
+      }
+    }, 100)
   } else {
     showToast(result.error, 'error')
   }
+}
+
+function handleAvatarError(event) {
+  console.error('Failed to load avatar:', event.target.src)
+  console.error('Error: Network error or file not found on server')
+  // Показываем инициал вместо аватарки при ошибке
+  event.target.style.display = 'none'
 }
 
 async function handleRemoveAvatar() {
