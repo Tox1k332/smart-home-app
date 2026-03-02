@@ -6,6 +6,8 @@ const { JWT_SECRET } = require('../middleware/auth')
 
 const router = express.Router()
 
+// Используем BACKEND_URL из env или определяем динамически
+const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:3001'
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000'
 
 // Вспомогательная: найти или создать OAuth-пользователя
@@ -51,7 +53,7 @@ router.get('/github', (req, res) => {
   const params = new URLSearchParams({
     client_id: clientId,
     scope: 'user:email',
-    redirect_uri: `${req.protocol}://${req.get('host')}/api/oauth/github/callback`
+    redirect_uri: `${BACKEND_URL}/api/oauth/github/callback`
   })
   res.redirect(`https://github.com/login/oauth/authorize?${params}`)
 })
@@ -65,7 +67,8 @@ router.get('/github/callback', async (req, res) => {
     const tokenRes = await axios.post('https://github.com/login/oauth/access_token', {
       client_id: process.env.GITHUB_CLIENT_ID,
       client_secret: process.env.GITHUB_CLIENT_SECRET,
-      code
+      code,
+      redirect_uri: `${BACKEND_URL}/api/oauth/github/callback`
     }, { headers: { Accept: 'application/json' } })
 
     const accessToken = tokenRes.data.access_token
@@ -86,7 +89,7 @@ router.get('/github/callback', async (req, res) => {
       email = primary?.email
     }
 
-    const user = findOrCreateOAuthUser('github', String(userRes.data.id), {
+    const user = await findOrCreateOAuthUser('github', String(userRes.data.id), {
       name: userRes.data.name || userRes.data.login,
       email,
       avatar: userRes.data.avatar_url
@@ -108,7 +111,7 @@ router.get('/google', (req, res) => {
 
   const params = new URLSearchParams({
     client_id: clientId,
-    redirect_uri: `${req.protocol}://${req.get('host')}/api/oauth/google/callback`,
+    redirect_uri: `${BACKEND_URL}/api/oauth/google/callback`,
     response_type: 'code',
     scope: 'openid email profile',
     access_type: 'offline',
@@ -127,7 +130,7 @@ router.get('/google/callback', async (req, res) => {
       client_id: process.env.GOOGLE_CLIENT_ID,
       client_secret: process.env.GOOGLE_CLIENT_SECRET,
       code,
-      redirect_uri: `${req.protocol}://${req.get('host')}/api/oauth/google/callback`,
+      redirect_uri: `${BACKEND_URL}/api/oauth/google/callback`,
       grant_type: 'authorization_code'
     })
 
@@ -139,7 +142,7 @@ router.get('/google/callback', async (req, res) => {
       headers: { Authorization: `Bearer ${accessToken}` }
     })
 
-    const user = findOrCreateOAuthUser('google', String(userRes.data.id), {
+    const user = await findOrCreateOAuthUser('google', String(userRes.data.id), {
       name: userRes.data.name,
       email: userRes.data.email,
       avatar: userRes.data.picture
