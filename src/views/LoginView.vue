@@ -9,6 +9,11 @@
           {{ t('auth.noAccountCanRegister') }} <router-link to="/register" class="link">{{ t('auth.registerLink') }}</router-link>
         </p>
 
+        <!-- Toast уведомление -->
+        <div v-if="toast.show" class="toast" :class="`toast-${toast.type}`">
+          {{ toast.message }}
+        </div>
+
         <form @submit.prevent="handleLogin" class="auth-form">
           <div class="form-group">
             <div class="input-wrapper">
@@ -89,6 +94,18 @@ const i18nStore = useI18nStore()
 
 const t = (key) => i18nStore.t(key)
 
+// Toast уведомления
+const toast = ref({ show: false, message: '', type: 'success' })
+let toastTimer = null
+
+function showToast(message, type = 'success') {
+  if (toastTimer) clearTimeout(toastTimer)
+  toast.value.show = true
+  toast.value.message = message
+  toast.value.type = type
+  toastTimer = setTimeout(() => { toast.value.show = false }, 3000)
+}
+
 const form = ref({
   email: '',
   password: ''
@@ -152,6 +169,12 @@ const handleLogin = async () => {
   } else if (result.needsVerification) {
     error.value = t('auth.emailNotVerified')
     unverifiedEmail.value = result.email
+  } else if (result.accountNotFound) {
+    // Аккаунт не найден — показываем уведомление и редиректим
+    showToast(result.error, 'warning')
+    setTimeout(() => {
+      router.push({ path: '/register', query: { email: form.value.email } })
+    }, 1500)
   } else {
     error.value = result.error
   }
@@ -442,6 +465,42 @@ const goToVerify = () => {
   .error-message {
     font-size: 13px;
     padding: 10px;
+  }
+}
+
+/* Toast уведомления */
+.toast {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  animation: slideIn 0.3s ease-out;
+}
+
+.toast-success {
+  background: #10b981;
+  color: white;
+}
+
+.toast-error {
+  background: #ef4444;
+  color: white;
+}
+
+.toast-warning {
+  background: #f59e0b;
+  color: white;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>

@@ -37,6 +37,17 @@ export const useAuthStore = defineStore('auth', () => {
       return { success: true }
     } catch (error) {
       const data = error.response?.data
+      const status = error.response?.status
+      
+      // Если аккаунт не найден (удалён) — помечаем для редиректа
+      if (status === 401 && data?.error === 'Неверный email или пароль') {
+        return { 
+          success: false, 
+          accountNotFound: true,
+          error: 'Аккаунт с таким email не найден. Пожалуйста, зарегистрируйтесь.'
+        }
+      }
+      
       if (data?.needsVerification) {
         return { success: false, needsVerification: true, email: data.email, error: data.error }
       }
