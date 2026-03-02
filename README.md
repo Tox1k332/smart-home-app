@@ -76,16 +76,16 @@ npm run server
 ### Backend
 - Node.js
 - Express
-- MongoDB (или JSON файл)
+- MongoDB (документоориентированная СУБД)
 - JWT (аутентификация)
-- bcryptjs
+- bcryptjs (хеширование паролей)
 - Nodemailer
 
 ### DevOps
 - Docker
 - Render.com (хостинг backend)
 - GitHub Pages (хостинг frontend)
-- MongoDB Atlas (база данных)
+- MongoDB Atlas (облачная база данных)
 
 ---
 
@@ -104,11 +104,104 @@ smart-home-app/
 │   ├── routes/             # API routes
 │   ├── middleware/         # Auth middleware
 │   ├── services/           # Email, etc.
-│   └── database/           # JSON DB (fallback)
+│   └── database/           # MongoDB адаптеры
 ├── package.json            # Зависимости
 ├── Dockerfile              # Docker образ
 └── render.yaml             # Render конфигурация
 ```
+
+---
+
+## 🗄️ Хранение данных (MongoDB + bcryptjs)
+
+В качестве системы управления базами данных проект использует **MongoDB** — документоориентированную NoSQL СУБД. Это обеспечивает масштабируемость, надёжность и возможность развёртывания в облаке через MongoDB Atlas.
+
+### Структура данных
+
+Проект использует следующие коллекции:
+
+| Коллекция | Описание |
+|-----------|----------|
+| `users` | Пользователи: email, имя, дата регистрации, пароль, OAuth-данные, аватар |
+| `devices` | Устройства умного дома: датчики, лампы, розетки, термостаты, замки |
+| `activityLogs` | Журнал действий пользователей: история операций с устройствами |
+
+### Коллекция `users`
+
+```javascript
+{
+  _id: ObjectId,
+  name: String,
+  email: String,              // уникальный индекс
+  password: String,           // хэш bcrypt
+  email_verified: Boolean,
+  oauth_provider: String,     // "google", "github"
+  oauth_id: String,
+  avatar: String,
+  created_at: ISODate
+}
+```
+
+### Коллекция `devices`
+
+```javascript
+{
+  _id: ObjectId,
+  user_id: ObjectId,          // индекс по user_id
+  name: String,
+  type: String,               // "light", "thermostat", "sensor", "lock", etc.
+  room: String,
+  properties: Object,         // специфичные для типа устройства
+  is_on: Boolean,
+  is_favorite: Boolean,
+  created_at: ISODate
+}
+```
+
+### Коллекция `activityLogs`
+
+```javascript
+{
+  _id: ObjectId,
+  user_id: ObjectId,
+  action: String,             // "device_on", "device_add", etc.
+  details: Object,
+  created_at: ISODate         // индекс по убыванию
+}
+```
+
+### 🔐 Обеспечение безопасности
+
+Для защиты учётных записей пользователей используется библиотека **bcryptjs**:
+
+- ✅ Пароли хранятся только в виде хэша
+- ✅ При аутентификации сравнивается хэш, а не исходный пароль
+- ✅ Даже при утечке базы данных злоумышленники не получат исходные пароли
+
+### 🌐 MongoDB Atlas (облачное развёртывание)
+
+Проект поддерживает подключение к облачной базе данных **MongoDB Atlas**:
+
+- 🆓 Бесплатный тариф: 512 MB
+- ☁️ Доступ из любой точки мира
+- 🔒 Встроенная аутентификация и шифрование
+- 📊 Автоматическое резервное копирование
+
+Подключение настраивается через переменную окружения:
+
+```env
+MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/smart-home
+```
+
+### 📌 Индексы
+
+Для оптимизации запросов созданы следующие индексы:
+
+| Коллекция | Поле | Тип |
+|-----------|------|-----|
+| `users` | `email` | уникальный |
+| `devices` | `user_id` | обычный |
+| `activityLogs` | `user_id`, `created_at` | составной |
 
 ---
 

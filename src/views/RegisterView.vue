@@ -111,6 +111,19 @@
               </div>
             </div>
 
+            <div class="form-group">
+              <label class="checkbox-label">
+                <input
+                  type="checkbox"
+                  v-model="form.agreement"
+                  required
+                />
+                <span class="checkbox-text">
+                  Я согласен на <a href="https://www.consultant.ru/document/cons_doc_LAW_61801/" target="_blank" rel="noopener noreferrer" class="link">обработку персональных данных</a>
+                </span>
+              </label>
+            </div>
+
             <div v-if="error" class="error-message">{{ error }}</div>
 
             <button type="submit" class="btn-submit" :disabled="loading">
@@ -206,7 +219,8 @@ const form = ref({
   name: '',
   email: '',
   password: '',
-  confirmPassword: ''
+  confirmPassword: '',
+  agreement: false
 })
 
 // Автозаполнение email если передан из login
@@ -285,6 +299,11 @@ const handleRegister = async () => {
 
   if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?`~]/.test(form.value.password)) {
     error.value = t('auth.passwordNeedsSpecial')
+    return
+  }
+
+  if (!form.value.agreement) {
+    error.value = 'Необходимо согласие на обработку персональных данных'
     return
   }
 
@@ -679,6 +698,64 @@ if (verificationEmail.value) {
 .resend-btn:disabled {
   color: var(--text-tertiary, #94a3b8);
   cursor: not-allowed;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-secondary, #64748b);
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-label input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-color, #e2e8f0);
+  border-radius: 4px;
+  margin-top: 2px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.checkbox-label input[type="checkbox"]:checked {
+  background: var(--primary-color, #6366f1);
+  border-color: var(--primary-color, #6366f1);
+}
+
+.checkbox-label input[type="checkbox"]:checked::after {
+  content: '\2713';
+  position: absolute;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.checkbox-label input[type="checkbox"]:focus {
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.checkbox-text {
+  line-height: 1.4;
+}
+
+.checkbox-text .link {
+  color: var(--primary-color, #6366f1);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.checkbox-text .link:hover {
+  text-decoration: underline;
 }
 
 .auth-right {
