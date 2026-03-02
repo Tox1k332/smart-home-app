@@ -21,6 +21,7 @@
     "multer": "^2.0.2",
     "nodemailer": "^8.0.1",
     "pinia": "^2.1.6",
+    "resend": "^6.9.3",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4"
   },
