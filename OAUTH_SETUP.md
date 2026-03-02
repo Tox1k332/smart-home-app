@@ -1,164 +1,151 @@
 # 🔐 Настройка OAuth (GitHub и Google)
 
-OAuth позволяет пользователям входить через GitHub или Google без регистрации.
+OAuth позволяет пользователям входить через свои аккаунты GitHub и Google.
 
 ---
 
-## 📋 Шаг 1: GitHub OAuth
+## 📋 Шаг 1: Настройка GitHub OAuth
 
-### 1.1 Создайте OAuth App на GitHub
+### 1.1 Создайте OAuth приложение на GitHub
 
-1. Зайдите на: https://github.com/settings/developers
-2. **OAuth Apps** → **New OAuth App**
-3. Заполните:
+1. Зайди на https://github.com/settings/developers
+2. **New OAuth App** (или выбери существующее)
+3. Заполни настройки:
 
 | Поле | Значение |
 |------|----------|
 | **Application name** | `Smart Home App` |
-| **Homepage URL** | `https://tox1k332.github.io/smart-home-app/` |
+| **Homepage URL** | `https://tox1k332.github.io/smart-home-app` |
 | **Authorization callback URL** | `https://smart-home-api-l5dr.onrender.com/api/oauth/github/callback` |
-| **Device Flow** | ❌ Не включать |
 
 4. **Register application**
 
-### 1.2 Получите Client Secret
+### 1.2 Получи Client Secret
 
-1. После создания нажмите **Generate a new client secret**
-2. **Скопируйте секрет** (показывается только один раз!)
-3. Запишите **Client ID** (показывается всегда)
+1. После создания нажми **Generate a new client secret**
+2. **Скопируй Client Secret** (показывается только один раз!)
+3. Client ID уже виден
 
-### 1.3 Добавьте переменные на Render
+### 1.3 Добавь переменные на Render
 
-1. Зайдите на: https://dashboard.render.com
-2. Ваш сервис `smart-home-api` → **Environment**
-3. Добавьте:
+1. Зайди на https://dashboard.render.com
+2. Твой сервис `smart-home-api` → **Environment**
+3. Добавь переменные:
 
-```
-GITHUB_CLIENT_ID=Ov23li... (ваш Client ID)
-GITHUB_CLIENT_SECRET=... (ваш Client Secret)
-```
+| Имя | Значение |
+|-----|----------|
+| `GITHUB_CLIENT_ID` | `Ov23li4JWccIITSDPyc1` (твой Client ID) |
+| `GITHUB_CLIENT_SECRET` | `...` (твой Client Secret) |
+
+4. **Save Changes** — сервис перезапустится
 
 ---
 
-## 📋 Шаг 2: Google OAuth
+## 📋 Шаг 2: Настройка Google OAuth
 
-### 2.1 Создайте проект в Google Cloud
+### 2.1 Создайте OAuth клиент в Google Cloud
 
-1. Зайдите на: https://console.cloud.google.com/
-2. **Создайте новый проект** (или выберите существующий)
-3. Название: `Smart Home App`
-
-### 2.2 Включите Google+ API
-
-1. В поиске введите **Google+ API**
-2. Нажмите **Enable**
-
-### 2.3 Создайте OAuth Credentials
-
-1. Зайдите на: https://console.cloud.google.com/apis/credentials
+1. Зайди на https://console.cloud.google.com/apis/credentials
 2. **Create Credentials** → **OAuth client ID**
-3. **Application type**: **Web application**
-4. Заполните:
+3. **Application type:** Web application
+4. **Name:** `Smart Home App`
 
-| Поле | Значение |
-|------|----------|
-| **Name** | `Smart Home App Web` |
-| **Authorized JavaScript origins** | `https://tox1k332.github.io` |
-| **Authorized redirect URIs** | `https://smart-home-api-l5dr.onrender.com/api/oauth/google/callback` |
+### 2.2 Настрой Authorized redirect URIs
 
-5. **Create**
+В разделе **Authorized redirect URIs** добавь:
 
-### 2.4 Получите Client ID и Secret
+```
+https://smart-home-api-l5dr.onrender.com/api/oauth/google/callback
+```
 
-После создания скопируйте:
-- **Client ID** (например: `123456789-xxx.apps.googleusercontent.com`)
+### 2.3 Получи Client ID и Secret
+
+После создания скопируй:
+- **Client ID**
 - **Client Secret**
 
-### 2.5 Добавьте переменные на Render
+### 2.4 Добавь переменные на Render
 
-1. Зайдите на: https://dashboard.render.com
-2. Ваш сервис `smart-home-api` → **Environment**
-3. Добавьте:
+В Render Dashboard добавь:
 
-```
-GOOGLE_CLIENT_ID=123456789-xxx.apps.googleusercontent.com
-GOOGLE_CLIENT_SECRET=... (ваш Client Secret)
-```
+| Имя | Значение |
+|-----|----------|
+| `GOOGLE_CLIENT_ID` | `...apps.googleusercontent.com` (твой Client ID) |
+| `GOOGLE_CLIENT_SECRET` | `...` (твой Client Secret) |
 
----
-
-## 📋 Шаг 3: Перезапустите Render
-
-1. Зайдите на: https://dashboard.render.com
-2. Ваш сервис → **Settings** → **Factory reboot**
-3. **Reboot Service**
+**Save Changes** — сервис перезапустится
 
 ---
 
-## ✅ Проверка
+## ✅ Шаг 3: Проверка
 
-### 1. Проверьте переменные на Render
+### 1. Проверь логи Render
 
-https://dashboard.render.com → ваш сервис → **Environment**
-
-Должны быть:
+После перезапуска в логах должно быть:
 ```
-GITHUB_CLIENT_ID=...
-GITHUB_CLIENT_SECRET=...
-GOOGLE_CLIENT_ID=...
-GOOGLE_CLIENT_SECRET=...
-```
-
-### 2. Попробуйте войти
-
-1. Откройте: https://tox1k332.github.io/smart-home-app/
-2. Нажмите **Войти через GitHub** или **Войти через Google**
-3. Авторизуйтесь
-4. Должно перекинуть на Dashboard с токеном
-
----
-
-## 🔍 Отладка
-
-### Если не работает GitHub:
-
-1. Проверьте **callback URL** в настройках GitHub App
-2. Должен быть: `https://smart-home-api-l5dr.onrender.com/api/oauth/github/callback`
-3. Проверьте логи Render — должна быть ошибка
-
-### Если не работает Google:
-
-1. Проверьте **Authorized redirect URIs** в Google Console
-2. Должен быть: `https://smart-home-api-l5dr.onrender.com/api/oauth/google/callback`
-3. Проверьте, что Google+ API включён
-
-### Ошибка "OAuth не настроен":
-
-1. Проверьте, что переменные добавлены на Render
-2. Сделайте **Factory reboot**
-3. Проверьте логи — должна быть ошибка
-
----
-
-## 📊 Логи
-
-В логах Render должно быть:
-```
-✅ Resend configured — email sending enabled
-🔍 Connecting to MongoDB...
-✅ MongoDB connected to database: smart-home-app
+📊 Database type: mongodb
 🚀 Server is running on port 7860
 ```
 
-При OAuth входе:
-```
-🔍 GitHub OAuth callback
-✅ GitHub user: { login: '...', email: '...' }
-🔑 Generated JWT for user: ...
-```
+### 2. Протестируй вход
+
+1. Открой https://tox1k332.github.io/smart-home-app/login
+2. Нажми на иконку **GitHub** или **Google**
+3. Авторизуйся через сервис
+4. Должно перенаправить обратно на `/login?token=...`
+
+### 3. Проверь консоль браузера
+
+Не должно быть ошибок CORS или 404.
+
+---
+
+## 🔍 Если OAuth не работает
+
+### Ошибка: "GitHub OAuth не настроен"
+
+**Причина:** Не добавлены переменные на Render
+
+**Решение:**
+1. Проверь `.env` на Render
+2. Убедись что `GITHUB_CLIENT_ID` и `GITHUB_CLIENT_SECRET` установлены
+3. Перезапусти сервис
+
+### Ошибка: "redirect_uri_mismatch"
+
+**Причина:** Callback URL в настройках OAuth не совпадает с реальным
+
+**Решение для GitHub:**
+1. Зайди в настройки OAuth приложения
+2. Обнови **Authorization callback URL**:
+   ```
+   https://smart-home-api-l5dr.onrender.com/api/oauth/github/callback
+   ```
+
+**Решение для Google:**
+1. Зайди в Google Cloud Console → Credentials
+2. Обнови **Authorized redirect URIs**:
+   ```
+   https://smart-home-api-l5dr.onrender.com/api/oauth/google/callback
+   ```
+
+### OAuth работает локально, но не на production
+
+**Причина:** Frontend использует неправильный URL
+
+**Решение:**
+1. Убедись что `src/services/oauth.js` содержит правильный URL
+2. Пересобери frontend: `npm run build`
+3. Запушь: `git push`
+
+---
+
+## 📊 Тарифы
+
+OAuth от GitHub и Google — **полностью бесплатно!**
 
 ---
 
 ## 🎉 Готово!
 
-Теперь пользователи могут входить через GitHub или Google! 🍀
+Теперь пользователи могут входить через GitHub и Google! 🚀
