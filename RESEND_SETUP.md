@@ -13,10 +13,10 @@
 
 ```bash
 # URL backend API (укажите ваш Render URL)
-VITE_API_URL=https://your-app.onrender.com/api
+VITE_API_BASE_URL=https://smart-home-api-l5dr.onrender.com/api
 ```
 
-**Важно:** Замените `your-app.onrender.com` на ваш реальный URL из Render!
+**Важно:** Замени `smart-home-api-l5dr.onrender.com` на ваш реальный URL из Render!
 
 ### Для backend (Render)
 

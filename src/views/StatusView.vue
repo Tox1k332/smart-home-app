@@ -314,12 +314,12 @@ const fetchWeather = async () => {
     const langMap = { en: 'en', ru: 'ru', fi: 'fi' }
     const lang = langMap[i18nStore.locale] || 'en'
     
-    // Используем VITE_API_URL в production, или proxy в development
-    const apiUrl = import.meta.env.VITE_API_URL 
-      ? `${import.meta.env.VITE_API_URL}/weather`
-      : `/api/weather`
+    // Используем тот же подход что и в api.js
+    const baseUrl = window.location.hostname.includes('github.io')
+      ? 'https://smart-home-api-l5dr.onrender.com/api'
+      : (import.meta.env.VITE_API_BASE_URL || '/api')
     
-    const url = `${apiUrl}?city=${encodeURIComponent(weatherCity.value)}&lang=${lang}`
+    const url = `${baseUrl}/weather?city=${encodeURIComponent(weatherCity.value)}&lang=${lang}`
     const res = await fetch(url)
 
     if (!res.ok) {
