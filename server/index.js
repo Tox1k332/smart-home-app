@@ -45,13 +45,13 @@ app.use(cors({
   origin: function(origin, callback) {
     // Разрешаем requests без origin (mobile apps, curl)
     if (!origin) return callback(null, true)
-    
+
     // Проверяем по whitelist или regex
     const isAllowed = ALLOWED_ORIGINS.some(allowed => {
       if (allowed instanceof RegExp) return allowed.test(origin)
       return allowed === origin
     })
-    
+
     if (isAllowed) {
       callback(null, true)
     } else {
@@ -59,7 +59,9 @@ app.use(cors({
       callback(new Error('Not allowed by CORS'))
     }
   },
-  credentials: true
+  credentials: true,
+  // Разрешаем доступ к заголовкам для загрузки файлов
+  exposedHeaders: ['Content-Disposition']
 }))
 
 app.use(express.json())

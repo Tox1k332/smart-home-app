@@ -127,7 +127,9 @@ export const useAuthStore = defineStore('auth', () => {
       const response = await api.post('/auth/avatar', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
-      user.value = { ...user.value, avatar: response.data.avatar }
+      // Формируем полный URL для аватарки
+      const avatarUrl = response.data.avatar
+      user.value = { ...user.value, avatar: avatarUrl }
       localStorage.setItem('user', JSON.stringify(user.value))
       return { success: true }
     } catch (error) {

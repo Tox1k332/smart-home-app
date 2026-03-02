@@ -511,7 +511,13 @@ router.post('/avatar', authMiddleware, (req, res) => {
       const avatarPath = `/uploads/avatars/${req.file.filename}`
       users.update(req.userId, { avatar: avatarPath })
 
-      res.json({ avatar: avatarPath })
+      // Формируем полный URL
+      const backendUrl = process.env.BACKEND_URL || `http://localhost:${process.env.PORT || 3001}`
+      const avatarUrl = `${backendUrl}${avatarPath}`
+
+      console.log(`🖼️ Avatar uploaded: ${avatarUrl}`)
+
+      res.json({ avatar: avatarUrl })
     } catch (error) {
       console.error('Avatar upload error:', error)
       res.status(500).json({ error: 'Ошибка сервера' })
