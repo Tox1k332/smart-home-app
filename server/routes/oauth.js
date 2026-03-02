@@ -1,7 +1,7 @@
 const express = require('express')
 const jwt = require('jsonwebtoken')
 const axios = require('axios')
-const { users } = require('../config/database')
+const { users } = require('../config/db')
 const { JWT_SECRET } = require('../middleware/auth')
 
 const router = express.Router()
@@ -9,22 +9,22 @@ const router = express.Router()
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000'
 
 // Вспомогательная: найти или создать OAuth-пользователя
-function findOrCreateOAuthUser(provider, oauthId, profile) {
+async function findOrCreateOAuthUser(provider, oauthId, profile) {
   // Ищем по OAuth ID
-  let user = users.findByOAuthId(provider, oauthId)
+  let user = await users.findByOAuthId(provider, oauthId)
   if (user) return user
 
   // Ищем по email (если уже есть аккаунт с таким email — привязываем)
   if (profile.email) {
-    user = users.findByEmail(profile.email)
+    user = await users.findByEmail(profile.email)
     if (user) {
-      users.update(user.id, { oauth_provider: provider, oauth_id: oauthId })
-      return users.findById(user.id)
+      await users.update(user.id, { oauth_provider: provider, oauth_id: oauthId })
+      return await users.findById(user.id)
     }
   }
 
   // Создаём нового пользователя
-  return users.create({
+  return await users.create({
     name: profile.name || profile.email || 'User',
     email: profile.email || `${provider}_${oauthId}@oauth.local`,
     password: null,
@@ -36,7 +36,7 @@ function findOrCreateOAuthUser(provider, oauthId, profile) {
 }
 
 // Вспомогательная: сгенерировать JWT и перенаправить на фронтенд
-function redirectWithToken(res, user) {
+async function redirectWithToken(res, user) {
   const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '7d' })
   res.redirect(`${FRONTEND_URL}/login?token=${token}`)
 }
