@@ -190,7 +190,7 @@
 </template>
 
 <script setup>
-import { ref, nextTick, onUnmounted } from 'vue'
+import { ref, nextTick, onMounted, onUnmounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import { useI18nStore } from '../stores/i18n'
@@ -207,6 +207,13 @@ const form = ref({
   email: '',
   password: '',
   confirmPassword: ''
+})
+
+// Автозаполнение email если передан из login
+onMounted(() => {
+  if (route.query.email) {
+    form.value.email = route.query.email
+  }
 })
 
 const error = ref('')
