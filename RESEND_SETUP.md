@@ -24,8 +24,11 @@ VITE_API_BASE_URL=https://smart-home-api-l5dr.onrender.com/api
 
 | Имя | Значение |
 |-----|----------|
+| `BACKEND_URL` | `https://smart-home-api-l5dr.onrender.com` |
 | `FRONTEND_URL` | `https://tox1k332.github.io/smart-home-app` |
 | `RESEND_API_KEY` | `re_xxxxxxxxxxxxxxxxxxxxx` |
+
+**Важно:** `BACKEND_URL` нужен для корректного формирования URL аватарок!
 
 ---
 
