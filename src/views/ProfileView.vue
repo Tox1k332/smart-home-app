@@ -1167,6 +1167,7 @@ input:disabled + .toggle-slider {
   }
 
   .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
 
@@ -1284,6 +1285,45 @@ input:disabled + .toggle-slider {
     right: 12px;
     padding: 10px 16px;
     font-size: 13px;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 0 10px;
+  }
+
+  .profile-card {
+    padding: 12px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .stat-item {
+    padding: 10px;
+  }
+
+  .stat-icon {
+    font-size: 24px;
+  }
+
+  .stat-value {
+    font-size: 18px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+  }
+
+  .profile-info h1 {
+    font-size: 18px;
+  }
+
+  .email {
+    font-size: 12px;
   }
 }
 </style>

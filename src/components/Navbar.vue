@@ -116,6 +116,14 @@ const handleLogout = () => {
     padding: 12px 16px;
   }
 
+  .top-header .logo {
+    font-size: 20px;
+  }
+
+  .top-header .header-actions {
+    gap: 8px;
+  }
+
   .top-header .header-btn {
     padding: 8px 12px;
     font-size: 13px;
@@ -128,27 +136,55 @@ const handleLogout = () => {
   }
 
   .top-header .logo {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .top-header .header-actions {
-    gap: 6px;
+    gap: 4px;
   }
 
   .top-header .header-btn {
-    padding: 6px;
+    padding: 8px;
     font-size: 0;
     gap: 0;
   }
 
   .top-header .header-btn svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
   }
 
   .top-header .header-btn-primary {
-    font-size: 11px;
+    font-size: 0;
+    padding: 8px 10px;
+  }
+
+  .top-header .header-btn-primary svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 360px) {
+  .top-header {
     padding: 6px 10px;
+  }
+
+  .top-header .logo {
+    font-size: 14px;
+  }
+
+  .top-header .header-actions {
+    gap: 2px;
+  }
+
+  .top-header .header-btn {
+    padding: 6px;
+  }
+
+  .top-header .header-btn svg {
+    width: 18px;
+    height: 18px;
   }
 }
 </style>
