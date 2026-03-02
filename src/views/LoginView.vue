@@ -169,14 +169,9 @@ const handleLogin = async () => {
   } else if (result.needsVerification) {
     error.value = t('auth.emailNotVerified')
     unverifiedEmail.value = result.email
-  } else if (result.accountNotFound) {
-    // Аккаунт не найден — показываем уведомление и редиректим
-    showToast(result.error, 'warning')
-    setTimeout(() => {
-      router.push({ path: '/register', query: { email: form.value.email } })
-    }, 1500)
   } else {
-    error.value = result.error
+    // Показываем ошибку, но не редиректим на 404
+    error.value = result.error || 'Ошибка входа'
   }
 }
 

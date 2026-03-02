@@ -26,10 +26,15 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    // Не обрабатываем 401 для запросов логина/регистрации
+    const isAuthRequest = error.config?.url?.includes('/auth/login') ||
+                          error.config?.url?.includes('/auth/register')
+
+    if (error.response?.status === 401 && !isAuthRequest) {
       localStorage.removeItem('token')
+      localStorage.removeItem('user')
       // Не делаем редирект если мы уже на странице логина
-      if (window.location.pathname !== '/login') {
+      if (window.location.pathname !== '/login' && window.location.pathname !== '/register') {
         window.location.href = '/login'
       }
     }

@@ -36,21 +36,28 @@ export const useAuthStore = defineStore('auth', () => {
       localStorage.setItem('user', JSON.stringify(response.data.user))
       return { success: true }
     } catch (error) {
-      const data = error.response?.data
-      const status = error.response?.status
-      
+      // Обрабатываем разные типы ошибок
+      if (!error.response) {
+        // Network error или сервер недоступен
+        return { success: false, error: 'Сервер недоступен. Проверьте подключение к интернету.' }
+      }
+
+      const data = error.response.data
+      const status = error.response.status
+
       // Если аккаунт не найден (удалён) — помечаем для редиректа
       if (status === 401 && data?.error === 'Неверный email или пароль') {
-        return { 
-          success: false, 
+        return {
+          success: false,
           accountNotFound: true,
           error: 'Аккаунт с таким email не найден. Пожалуйста, зарегистрируйтесь.'
         }
       }
-      
+
       if (data?.needsVerification) {
         return { success: false, needsVerification: true, email: data.email, error: data.error }
       }
+
       return { success: false, error: data?.error || 'Ошибка входа' }
     }
   }
